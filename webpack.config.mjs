@@ -1,5 +1,5 @@
 import path, { join } from 'path';
-import { fileURLToPath, pathToFileURL } from 'url';
+import { fileURLToPath } from 'url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import fs from 'fs';
 
@@ -10,35 +10,21 @@ const baseDir = path.resolve(__dirname, './src');
 const buildDir = path.resolve(__dirname, './build');
 const pagesDir = path.resolve(__dirname, './src/pages');
 
-const generatePages = async () => {
-  const pagesFiles = fs.readdirSync(pagesDir);
-  const plugins = await Promise.all(
-    pagesFiles
-      .filter((file) => file.endsWith('.js'))
-      .map(async (file) => {
-        const pageName = file.split('.')[0];
-        const template = import.meta.resolve(join(pagesDir, file));
-
-        return new HtmlWebpackPlugin({
-          filename: `${pageName}.html`,
-          template,
-        });
-      }),
-  );
-  return plugins;
-};
-
-export default async (env) => {
+export default async (env, mode) => {
   console.debug('env', env);
-  const pages = await generatePages();
   return {
-    // mode,
+    mode,
     entry: path.join(baseDir, 'app.js'),
     output: {
       path: buildDir,
       filename: 'bundle.js',
       clean: true,
     },
-    plugins: [...pages],
+    plugins: [
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: path.join(pagesDir, 'index.js'),
+      }),
+    ],
   };
 };
