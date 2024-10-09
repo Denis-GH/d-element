@@ -1,4 +1,4 @@
-import { Button } from '../shared/ui/Button/index.js';
+import { Button } from '#shared/ui/Button/index';
 
 const indexPage = () => `
 <!DOCTYPE html>
