@@ -1,6 +1,10 @@
+import CopyPlugin from "copy-webpack-plugin";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import TerserPlugin from "terser-webpack-plugin";
 import webpack from "webpack";
+import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -12,6 +16,22 @@ const buildDir = path.resolve(__dirname, "./build");
 const publicDir = path.resolve(__dirname, "./public");
 const pagesDir = path.resolve(__dirname, "./src/pages");
 const appDir = path.resolve(__dirname, "./src/app");
+
+const folders = ["fonts", "assets"];
+const copyFolders = (folders) => {
+  return folders.map(() => {
+    const fromPath = publicDir;
+    const toPath = buildDir;
+    if (!fs.existsSync(fromPath)) {
+      console.warn(`Source folder: ${fromPath} does not exist`);
+    }
+    return {
+      from: fromPath,
+      to: toPath,
+      noErrorOnMissing: true,
+    };
+  });
+};
 
 export default async (env, { mode }) => {
   const isDev = mode === "development";
@@ -62,6 +82,9 @@ export default async (env, { mode }) => {
       new webpack.DefinePlugin({
         "process.env.API_URL": JSON.stringify(env.API_URL),
       }),
+      new CopyPlugin({
+        patterns: copyFolders(folders),
+      }),
     ],
     resolve: {
       alias: {
@@ -73,6 +96,13 @@ export default async (env, { mode }) => {
         "#app": path.resolve(__dirname, "src/app"),
       },
       extensions: [".js", ".pcss"],
+    },
+    optimization: {
+      minimize: !isDev, //В режиме продакшена
+      minimizer: [
+        new CssMinimizerPlugin(), //Минификация CSS
+        new TerserPlugin(),
+      ],
     },
     devtool: isDev ? "eval-source-map" : false,
   };

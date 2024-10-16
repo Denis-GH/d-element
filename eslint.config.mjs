@@ -155,7 +155,7 @@ export default [
       "no-console": [
         "error",
         {
-          allow: ["debug", "error"],
+          allow: ["debug", "error", "warn"],
         },
       ],
     },
