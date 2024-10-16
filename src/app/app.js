@@ -1,11 +1,11 @@
-import './styles.js';
-import { BASE_URL, API_URL, API_ENDPOINTS } from '#shared/config/constants';
+import "./styles.js";
+import { BASE_URL, API_URL, API_ENDPOINTS } from "#shared/config/constants";
 
 async function initMSW() {
-  if (process.env.NODE_ENV === 'development') {
-    const { getMocks } = await import('#shared/api/lib/index.js');
+  if (process.env.NODE_ENV === "development") {
+    const { getMocks } = await import("#shared/api/browser");
     await getMocks();
-    console.debug('msw ready');
+    console.debug("msw ready");
   } else {
     return Promise.resolve();
   }
@@ -13,8 +13,8 @@ async function initMSW() {
 
 function domReady() {
   return new Promise((res) => {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', res);
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", res);
     } else {
       res();
     }

@@ -1,6 +1,6 @@
-const files = await import.meta.webpackContext('../', {
+const files = await import.meta.webpackContext("../", {
   regExp: /\.pcss/,
-  mode: 'eager',
+  mode: "eager",
 });
 const styles = await Promise.all(files.keys().map((path) => files(path)));
 export { styles };
