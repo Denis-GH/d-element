@@ -1,6 +1,6 @@
 const API_ENDPOINTS = {
   posts: {
-    news: 'newsPosts',
+    news: "newsPosts",
   },
 };
 
