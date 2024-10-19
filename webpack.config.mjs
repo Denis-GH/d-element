@@ -19,9 +19,9 @@ const appDir = path.resolve(__dirname, "./src/app");
 
 const folders = ["fonts", "assets"];
 const copyFolders = (folders) => {
-  return folders.map(() => {
-    const fromPath = publicDir;
-    const toPath = buildDir;
+  return folders.map((folder) => {
+    const fromPath = path.resolve(publicDir, `./${folder}`);
+    const toPath = path.resolve(buildDir, `./${folder}`);
     if (!fs.existsSync(fromPath)) {
       console.warn(`Source folder: ${fromPath} does not exist`);
     }

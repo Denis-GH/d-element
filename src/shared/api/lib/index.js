@@ -1,7 +1,7 @@
 import { http, HttpResponse, HttpMethods } from "msw";
 import { API_URL } from "../../config/constants.js";
 
-/*
+/**
  * Получает результат ответа MSW
  * @param type{String=} - тип запроса
  * @param resp{Object=} - собственный ответ
