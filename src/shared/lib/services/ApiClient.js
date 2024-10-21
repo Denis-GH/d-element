@@ -1,13 +1,20 @@
 /* eslint-disable @stylistic/js/padded-blocks */
 export class ApiClient {
+  static instance;
+
   constructor(baseURL) {
+    if (ApiClient.instance) {
+      return ApiClient.instance;
+    }
     this.baseURL = baseURL;
+    ApiClient.instance = this;
   }
+
   // Преобразование объекта параметров в строку запроса
   serializeParams(params) {
     return new URLSearchParams(params).toString();
   }
-  //TODO: скорее всего это лучше преобразовать в switch case
+
   async #handleResponse(response) {
     const contentType = response.headers.get("Content-Type");
     let responseData;
@@ -24,6 +31,7 @@ export class ApiClient {
     }
     return responseData;
   }
+
   async request(
     endpoint,
     method = "GET",
@@ -40,6 +48,7 @@ export class ApiClient {
         ...headers,
       },
     };
+
     if (body) {
       switch (contentType) {
         case "application/json":
@@ -49,6 +58,7 @@ export class ApiClient {
           options.body = body;
       }
     }
+
     try {
       const response = await fetch(url, options);
       if (!response.ok) {
@@ -57,17 +67,21 @@ export class ApiClient {
       return this.#handleResponse(response);
     } catch (e) {}
   }
+
   get(endpoint, params = {}, headers = {}, contentType = "application/json") {
     const queryString = this.serializeParams(params);
     const urlWithParams = queryString ? `${endpoint}?${queryString}` : endpoint;
     return this.request(urlWithParams, "GET", null, headers, contentType);
   }
+
   post(endpoint, body, headers = {}, contentType = "application/json") {
     return this.request(endpoint, "POST", body, headers, contentType);
   }
+
   put(endpoint, body, headers = {}, contentType = "application/json") {
     return this.request(endpoint, "PUT", body, headers, contentType);
   }
+
   delete(endpoint, headers = {}, contentType = "application/json") {
     return this.request(endpoint, "DELETE", null, headers, contentType);
   }
