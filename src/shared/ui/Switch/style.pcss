@@ -1,0 +1,58 @@
+.switch {
+  --switchBgColor: var(--colorGray);
+  --switchBgColorActive: var(--colorPrimary);
+  --switchWidth: 5.75rem;
+  --switchHeight: 3rem;
+  --switchBorderRadius: 7rem;
+  --switchCircleWidth: 2.5rem;
+  --switchCircleAspectRatio: 1;
+  --switchCircleColor: var(--colorWhite);
+  --switchTransition: all 0.4s;
+  --switchTypeDisplay: inline-flex;
+  --switchFlexDirection: row;
+  --switchGap: 1rem;
+  position: relative;
+  display: var(--switchTypeDisplay);
+  align-items: center;
+  flex-direction: var(--switchFlexDirection);
+  gap: var(--switchGap);
+  cursor: pointer;
+
+  &:has(&__label:empty) {
+    --switchGap: 0;
+  }
+
+  &__slider {
+    width: var(--switchWidth);
+    height: var(--switchHeight);
+    position: relative;
+    background-color: var(--colorGray);
+    border-radius: var(--switchBorderRadius);
+    transition: var(--switchTransition);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: var(--switchCircleWidth);
+      aspect-ratio: var(--switchCircleAspectRatio);
+      background-color: var(--switchCircleColor);
+      border-radius: 50%;
+      transition: var(--switchTransition);
+    }
+  }
+
+  /* stylelint-disable-next-line selector-class-pattern */
+  &__input:checked + .switch__slider {
+    background-color: var(--colorPrimary);
+
+    &::before {
+      transform: translateX(calc(var(--switchWidth) - var(--switchCircleWidth) - 4px));
+    }
+  }
+
+  &--isRightLabel {
+    --switchFlexDirection: row-reverse;
+  }
+}

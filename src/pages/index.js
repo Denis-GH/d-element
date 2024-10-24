@@ -1,4 +1,5 @@
 import { Button } from "#shared/ui/Button/index";
+import { Switch } from "#shared/ui/index";
 
 const indexPage = () => `
 <!DOCTYPE html>
@@ -11,6 +12,13 @@ const indexPage = () => `
 <body>
   hello world
   ${Button({ text: "hi" })}
+  ${Switch({
+    label: "Привет мир",
+    extraInputAttrs: [
+      { name: "name", value: "rememberMe" },
+      { name: "form", value: "formAuth" },
+    ],
+  })}
 </body>
 </html>`;
 
