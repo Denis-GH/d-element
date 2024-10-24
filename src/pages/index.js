@@ -1,5 +1,22 @@
 import { Button } from "#shared/ui/Button/index";
 import { Switch } from "#shared/ui/index";
+import {
+  BarIcon,
+  CinemaIcon,
+  CloseIcon,
+  DeleteIcon,
+  DirectIcon,
+  RouteIcon,
+  EditIcon,
+  LocationIcon,
+  MusicIcon,
+  RestaurantIcon,
+  SaveIcon,
+  SearchIcon,
+  TheaterIcon,
+  YesIcon,
+  NoIcon,
+} from "#shared/ui/Icons";
 
 const indexPage = () => `
 <!DOCTYPE html>
