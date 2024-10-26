@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 
 export const aliases = {
   "#public": path.resolve(__dirname, "public"),
+  "#assets": path.resolve(__dirname, "public/assets"),
   "#shared": path.resolve(__dirname, "src/shared"),
   "#entities": path.resolve(__dirname, "src/entities"),
   "#features": path.resolve(__dirname, "src/features"),
