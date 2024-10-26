@@ -7,6 +7,7 @@ import webpack from "webpack";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { aliases } from "./aliases.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -87,14 +88,7 @@ export default async (env, { mode }) => {
       }),
     ],
     resolve: {
-      alias: {
-        "#shared": path.resolve(__dirname, "src/shared"),
-        "#entities": path.resolve(__dirname, "src/entities"),
-        "#features": path.resolve(__dirname, "src/features"),
-        "#pages": path.resolve(__dirname, "src/pages"),
-        "#widgets": path.resolve(__dirname, "src/widgets"),
-        "#app": path.resolve(__dirname, "src/app"),
-      },
+      alias: aliases,
       extensions: [".js", ".pcss"],
     },
     optimization: {
