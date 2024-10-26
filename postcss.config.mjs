@@ -16,10 +16,11 @@ export default {
     }),
     "postcss-import", // Для поддержки @import
     "postcss-mixins", // Для миксинов
-    "postcss-custom-media", // Для кастомных медиа-запросов
-    "postcss-nested", // Для вложенности в стилях
     postcssPresetEnv({
-      features: {},
+      features: {
+        "nesting-rules": true, // Для вложенности
+        "custom-media-queries": true, // Для кастомных медиа-запросов
+      },
     }),
   ],
 };
