@@ -1,22 +1,7 @@
 import { Button } from "#shared/ui/Button/index";
+import { BarIcon, CinemaIcon, MusicIcon, RestaurantIcon } from "#shared/ui/Icons";
 import { Switch } from "#shared/ui/index";
-import {
-  BarIcon,
-  CinemaIcon,
-  CloseIcon,
-  DeleteIcon,
-  DirectIcon,
-  RouteIcon,
-  EditIcon,
-  LocationIcon,
-  MusicIcon,
-  RestaurantIcon,
-  SaveIcon,
-  SearchIcon,
-  TheaterIcon,
-  YesIcon,
-  NoIcon,
-} from "#shared/ui/Icons";
+import { Select } from "#shared/ui/index";
 
 const indexPage = () => `
 <!DOCTYPE html>
@@ -35,6 +20,47 @@ const indexPage = () => `
       { name: "name", value: "rememberMe" },
       { name: "form", value: "formAuth" },
     ],
+  })}
+  ${Select({
+    cfg: {
+      preset: "default",
+      itemSelectText: "",
+      searchEnabled: false,
+      choices: [
+        {
+          value: "item 1",
+          label: "item 1",
+          selected: true,
+          customProperties: {
+            icon: BarIcon(),
+          },
+        },
+        {
+          value: "item 2",
+          label: "item 2",
+          selected: true,
+          customProperties: {
+            icon: CinemaIcon(),
+          },
+        },
+        {
+          value: "item 3",
+          label: "item 3",
+          selected: true,
+          customProperties: {
+            icon: MusicIcon(),
+          },
+        },
+        {
+          value: "item 4",
+          label: "item 4",
+          selected: true,
+          customProperties: {
+            icon: RestaurantIcon(),
+          },
+        },
+      ],
+    },
   })}
 </body>
 </html>`;

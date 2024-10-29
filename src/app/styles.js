@@ -1,3 +1,5 @@
+import "choices.js/public/assets/styles/choices.css";
+
 const files = await import.meta.webpackContext("../", {
   regExp: /\.pcss$/,
   mode: "eager",

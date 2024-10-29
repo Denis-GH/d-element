@@ -1,6 +1,7 @@
 import "./styles.js";
 import { API_URL, API_ENDPOINTS } from "#shared/config/constants";
 import { ApiClient } from "#shared/lib/services/ApiClient.js";
+import { SelectModel } from "#shared/ui/Select/model/index.js";
 
 async function initMSW() {
   if (process.env.NODE_ENV === "development") {
@@ -23,6 +24,9 @@ function domReady() {
 }
 
 Promise.all([initMSW(), domReady()]).then(() => {
+  window.App = {};
   const apiClient = new ApiClient(API_URL);
+  window.App.Selects = new SelectModel();
+  window.App.SelectModel = SelectModel;
   apiClient.get(API_ENDPOINTS.marks.list, { id: 5 }).then((res) => console.debug(res));
 });
