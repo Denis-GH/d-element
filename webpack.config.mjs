@@ -112,6 +112,6 @@ export default async (env, { mode }) => {
         new TerserPlugin(),
       ],
     },
-    devtool: isDev ? "eval-source-map" : false,
+    devtool: isDev ? "source-map" : false,
   };
 };
