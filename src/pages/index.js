@@ -1,5 +1,5 @@
+import { BarIcon, CinemaIcon, MusicIcon, RestaurantIcon, YesIcon, NoIcon } from "#shared/ui/index";
 import { Button } from "#shared/ui/Button/index";
-import { BarIcon, CinemaIcon, MusicIcon, RestaurantIcon } from "#shared/ui/index";
 import { Switch } from "#shared/ui/index";
 import { Select } from "#shared/ui/index";
 
@@ -13,7 +13,8 @@ const indexPage = () => `
 </head>
 <body>
   hello world
-  ${Button({ text: "hi" })}
+  ${Button({ text: "Да", iconSlot: YesIcon(), extraClasses: ["btn--isGreenLightIcon"] })}
+  ${Button({ text: "Нет", iconSlot: NoIcon(), extraClasses: ["btn--isRedIcon"] })}
   ${Switch({
     label: "Привет мир",
     extraInputAttrs: [
