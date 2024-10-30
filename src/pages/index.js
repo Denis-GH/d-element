@@ -1,5 +1,5 @@
 import { Button } from "#shared/ui/Button/index";
-import { BarIcon, CinemaIcon, MusicIcon, RestaurantIcon } from "#shared/ui/Icons";
+import { BarIcon, CinemaIcon, MusicIcon, RestaurantIcon } from "#shared/ui/index";
 import { Switch } from "#shared/ui/index";
 import { Select } from "#shared/ui/index";
 
@@ -32,7 +32,7 @@ const indexPage = () => `
           label: "item 1",
           selected: true,
           customProperties: {
-            icon: BarIcon(),
+            icon: BarIcon({ iconColor: "var(--colorPrimary)" }),
           },
         },
         {
