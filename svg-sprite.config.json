@@ -1,0 +1,23 @@
+{
+  "dest": "./src/shared/ui/icons",
+  "log": "info",
+  "shape": {
+    "id": {
+      "generator": "%s"
+    }
+  },
+  "mode": {
+    "symbol": {
+      "inline": false,
+      "dest": "",
+      "sprite": "sprite.svg"
+    }
+  },
+  "svg": {
+    "xmlDeclaration": false,
+    "doctypeDeclaration": false,
+    "rootAttributes": {
+      "class": "icons-sprite"
+    }
+  }
+}

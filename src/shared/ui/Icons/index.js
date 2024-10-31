@@ -1,15 +1,2 @@
-export { BarIcon } from "./ui/BarIcon.js";
-export { CinemaIcon } from "./ui/CinemaIcon.js";
-export { CloseIcon } from "./ui/CloseIcon.js";
-export { DeleteIcon } from "./ui/DeleteIcon.js";
-export { DirectIcon } from "./ui/DirectIcon.js";
-export { RouteIcon } from "./ui/RouteIcon.js";
-export { EditIcon } from "./ui/EditIcon.js";
-export { LocationIcon } from "./ui/LocationIcon.js";
-export { MusicIcon } from "./ui/MusicIcon.js";
-export { RestaurantIcon } from "./ui/RestaurantIcon.js";
-export { SaveIcon } from "./ui/SaveIcon.js";
-export { SearchIcon } from "./ui/SearchIcon.js";
-export { TheaterIcon } from "./ui/TheaterIcon.js";
-export { YesIcon } from "./ui/YesIcon.js";
-export { NoIcon } from "./ui/NoIcon.js";
+export const Icon = ({ id = "", width = "18", height = "18", color = "currentColor" } = {}) =>
+  `<svg width="${width}" height="${height}" color="${color}"><use xlink:href="#${id}"></use></svg>`;
