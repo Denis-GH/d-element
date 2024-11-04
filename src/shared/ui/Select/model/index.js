@@ -4,15 +4,7 @@ import { getCfg } from "#shared/lib/utils";
 /**
  * Модель для создания кастомного селекта на основе choices.js
  */
-export class SelectModel {
-  selectors = {
-    instance: "[data-js-select]",
-  };
-
-  static instance;
-
-  static choicesInstances = [];
-
+class SelectTemplate {
   static presets = {
     default: {
       createItem: ({ classNames }, data, { strToEl, escapeForTemplate, getClassNames }) => {
@@ -93,6 +85,12 @@ export class SelectModel {
     },
   };
 
+  static getTemplate(presetName = "default") {
+    return SelectTemplate.presets[presetName] || SelectTemplate.presets.default;
+  }
+}
+
+class SelectConfig {
   static defaultCfg = {
     itemSelectText: "",
     classNames: {
@@ -108,10 +106,7 @@ export class SelectModel {
       getClassNames,
       { preset, itemSelectText }
     ) {
-      const presetName = preset || "default";
-      const { createItem, createChoice } =
-        SelectModel.presets[presetName] || SelectModel.presets.default;
-
+      const { createItem, createChoice } = SelectTemplate.getTemplate(preset);
       return {
         item: (classNames, data) =>
           createItem(classNames, data, {
@@ -134,45 +129,60 @@ export class SelectModel {
     },
   };
 
-  static createSelect(node) {
+  static getConfig(node) {
     const cfg = getCfg(node, "data-js-select");
     const { disableTemplates, preset, ...restCfg } = cfg;
     const choicesConfig = {
-      ...SelectModel.defaultCfg,
+      ...SelectConfig.defaultCfg,
       ...restCfg,
     };
-    //Если не хотим использовать кастомный шаблон - передаем явно это в конфиге
+
     if (disableTemplates) {
       delete choicesConfig.callbackOnCreateTemplates;
     } else {
-      //Паттерн декоратор. Применяем функцию высшего порядка, чтобы дополнительно прокинуть поле preset для создания кастомного шаблона, если он нужен
-      //Подробно описал как это работает в readme.md
-      //Вкратце, наш originalCallback в defaultCfg принимает только 3 параметра. Нам же необходимо дополнительно прокинуть preset, чтобы определить какой шаблон для кастомного селекта будет использоваться, при этом сохраняя аргументы, которые передали изначально. Применяем паттерн декоратор и немного "меняем" дефолтное поведение функции
       choicesConfig.callbackOnCreateTemplates = ((originalCallback) => {
         return function (...args) {
           return originalCallback.apply(this, [
             ...args,
-            { preset, itemSelectText: choicesConfig.itemSelectText }, //дополнительно надо передать preset и текст при наведении. Связано с тем, что в статическом поле presets есть готовые функции-билдеры для формирования кастомной разметки и ,например, для choices, надо передавать itemSelectText, который есть в конфиге.
+            { preset, itemSelectText: choicesConfig.itemSelectText },
           ]);
         };
       })(choicesConfig.callbackOnCreateTemplates);
     }
-    SelectModel.choicesInstances.push(
-      new Choices(node, {
-        ...choicesConfig,
-      })
-    );
+
+    return choicesConfig;
+  }
+}
+
+class ChoicesInstance {
+  static choicesInstances = [];
+
+  static createInstance(node, config) {
+    const choicesInstance = new Choices(node, config);
+    ChoicesInstance.choicesInstances.push(choicesInstance);
+    return choicesInstance;
   }
 
   static getChoiceInstance(node) {
-    return SelectModel.choicesInstances.find((instance) => instance.passedElement.element === node);
+    return ChoicesInstance.choicesInstances.find(
+      (instance) => instance.passedElement.element === node
+    );
   }
+}
+
+export class SelectModel {
+  selectors = {
+    instance: "[data-js-select]",
+  };
+
+  static instance;
 
   constructor() {
     if (SelectModel.instance) return SelectModel.instance;
     this.selects = document.querySelectorAll(this.selectors.instance);
     this.selects.forEach((select) => {
-      SelectModel.createSelect(select);
+      const config = SelectConfig.getConfig(select);
+      ChoicesInstance.createInstance(select, config);
     });
     SelectModel.instance = this;
   }
