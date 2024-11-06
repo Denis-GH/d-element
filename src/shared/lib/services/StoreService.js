@@ -7,8 +7,11 @@ export class StoreService {
     this.actionMap = {
       setMarkers: (payload) => this.store.getState().setMarkers(payload),
       addMarker: (payload) => this.store.getState().addMarker(payload),
+      addMarkerList: (payload) => this.store.getState().addMarkerList(payload),
       removeMarker: (payload) => this.store.getState().removeMarker(payload),
+      removeMarkerList: (payload) => this.store.getState().removeMarkerList(payload),
       setFilters: (payload) => this.store.getState().setFilters(payload),
+      removeFilters: () => this.store.getState().removeFilters(),
     };
   }
 
