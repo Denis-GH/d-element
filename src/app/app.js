@@ -3,6 +3,7 @@ import { API_URL, API_ENDPOINTS } from "#shared/config/constants";
 import { ApiClient } from "#shared/lib/services/ApiClient.js";
 import { SelectModel } from "#shared/ui/Select/model/index.js";
 import { MapApp } from "#widgets/MapApp/model/index.js";
+import { StoreService } from "#shared/lib/services/StoreService.js";
 
 async function initMSW() {
   if (process.env.NODE_ENV === "development") {
@@ -29,6 +30,6 @@ Promise.all([initMSW(), domReady()]).then(() => {
   const apiClient = new ApiClient(API_URL);
   window.App.Selects = new SelectModel();
   window.App.SelectModel = SelectModel;
-  new MapApp("store-map-markers");
-  apiClient.get(API_ENDPOINTS.marks.list, { id: 5 }).then((res) => console.debug(res));
+  const storeService = new StoreService("store-map-markers");
+  new MapApp(storeService);
 });
