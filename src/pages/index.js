@@ -1,4 +1,4 @@
-import { Button } from "#shared/ui/Button/index";
+import { Button } from "#shared/ui/index";
 import { Switch } from "#shared/ui/index";
 import { Select } from "#shared/ui/index";
 import { Icon } from "#shared/ui/index";
