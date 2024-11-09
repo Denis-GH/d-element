@@ -1,9 +1,9 @@
 import "./styles.js";
 import { API_URL, API_ENDPOINTS } from "#shared/config/constants";
 import { ApiClient } from "#shared/lib/services/ApiClient.js";
+import { StoreService } from "#shared/lib/services/StoreService.js";
 import { SelectModel } from "#shared/ui/Select/model/index.js";
 import { MapApp } from "#widgets/MapApp/model/index.js";
-import { StoreService } from "#shared/lib/services/StoreService.js";
 
 async function initMSW() {
   if (process.env.NODE_ENV === "development") {
