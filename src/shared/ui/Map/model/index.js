@@ -18,17 +18,34 @@ export class YandexMap {
     this.apiUrl = apiUrl;
     this.instance = null;
   }
+
+  #createMap() {
+    this.instance = new window.ymaps.Map(
+      document.querySelector(this.containerSelector),
+      {
+        center: this.center,
+        zoom: this.zoom,
+        type: "yandex#map",
+        controls: [],
+      },
+      {
+        suppressMapOpenBlock: true,
+      }
+    );
+    return this.instance;
+  }
+
   async initMap() {
     try {
+      if (window.ymaps) {
+        return this.#createMap();
+      }
+
       await getExternalScript(`${this.apiUrl}=${this.apiKey}&lang=${this.lang}`);
       await new Promise((resolve, reject) => {
         window.ymaps.ready(() => {
           try {
-            this.instance = new window.ymaps.Map(document.querySelector(this.containerSelector), {
-              center: this.center,
-              zoom: this.zoom,
-            });
-            resolve(this.instance);
+            resolve(this.#createMap());
           } catch (e) {
             reject(e);
           }
