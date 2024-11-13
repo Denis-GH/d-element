@@ -13,21 +13,20 @@ export class MapApp {
       containerSelector: "#map1",
       apiKey: "0ae22803-0158-4e0f-9dd1-6c79a36e28fa",
       lang: "ru_RU",
-      center: [55.751574, 37.573856],
+      center: [56.5, 57.9],
       zoom: 10,
       apiUrl: "https://api-maps.yandex.ru/2.1/?apikey",
     });
 
     this.yandexMap
       .initMap()
-      .then((res) => {
-        console.debug("Карта инциализирована", res, this.yandexMap.instance);
-        this.yandexMap.addMark();
+      .then(async () => {
+        const markers = await this.fetchMarkers();
+        this.saveMarkersToStore(markers);
       })
       .catch((e) => console.error(e));
 
     this.subscribeToStoreServiceChanges();
-    this.fetchMarkers();
   }
 
   handleMarkersChanged() {
@@ -55,16 +54,20 @@ export class MapApp {
   async fetchMarkers() {
     try {
       const response = await this.apiClient.get(API_ENDPOINTS.marks.list);
-      const markers = response.data.marks || [];
-
-      if (markers.length > 0) {
-        this.storeService.updateStore("setMarkers", markers);
-        console.debug("Markers fetched and stored:", markers);
-      } else {
-        console.warn("No markers found in the response");
-      }
+      console.debug(response, "!!!!!");
+      return response?.data?.marks || [];
     } catch (error) {
       console.error("Error fetching markers:", error);
+      return [];
+    }
+  }
+
+  saveMarkersToStore(markers) {
+    if (markers.length > 0) {
+      this.storeService.updateStore("setMarkers", markers);
+      console.debug("Markers fetched and stored:", markers);
+    } else {
+      console.warn("No markers found in the response");
     }
   }
 }
