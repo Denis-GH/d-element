@@ -1,8 +1,10 @@
-/* eslint-disable @stylistic/js/padded-blocks */
 import { API_ENDPOINTS } from "#shared/config/constants";
 import { ApiClient } from "#shared/lib/services/ApiClient";
 import { YandexMap } from "#shared/ui/Map/model";
 
+/**
+ *
+ */
 export class MapApp {
   constructor(storeService, apiClient = new ApiClient()) {
     this.storeService = storeService;
@@ -31,6 +33,7 @@ export class MapApp {
   handleMarkersChanged() {
     console.debug("markers changed", this.storeService.getMarkers());
   }
+
   handleFiltersChanged() {
     console.debug("filters changed", this.storeService.getFilters());
   }

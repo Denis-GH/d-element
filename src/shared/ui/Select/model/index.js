@@ -1,4 +1,3 @@
-/* eslint-disable @stylistic/js/padded-blocks */
 import Choices from "choices.js";
 import { getCfg } from "#shared/lib/utils";
 /**
@@ -170,6 +169,9 @@ class ChoicesInstance {
   }
 }
 
+/**
+ *
+ */
 export class SelectModel {
   selectors = {
     instance: "[data-js-select]",

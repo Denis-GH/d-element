@@ -1,8 +1,8 @@
-import { Button } from "#shared/ui/index";
-import { Switch } from "#shared/ui/index";
-import { Select } from "#shared/ui/index";
-import { Icon } from "#shared/ui/index";
+import { Button, Icon, Select, Switch } from "#shared/ui/index";
 
+/**
+ *
+ */
 const indexPage = () => `
 <!DOCTYPE html>
 <html lang="en">

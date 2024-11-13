@@ -1,6 +1,8 @@
-/* eslint-disable @stylistic/js/padded-blocks */
 import { createStore } from "#shared/store/store";
 
+/**
+ *
+ */
 export class StoreService {
   constructor(storageName) {
     this.store = createStore(storageName);
@@ -26,6 +28,7 @@ export class StoreService {
   getMarkers() {
     return this.store.getState().markers;
   }
+
   getFilters() {
     return this.store.getState().activeFilters;
   }

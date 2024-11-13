@@ -1,7 +1,9 @@
-/* eslint-disable @stylistic/js/padded-blocks */
 import { checkMapInstance } from "../config/lib/checkMapInstance.js";
 import { getExternalScript } from "#shared/lib/utils/getExternalScript";
 
+/**
+ *
+ */
 export class YandexMap {
   constructor({
     containerSelector,

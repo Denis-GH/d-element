@@ -1,3 +1,4 @@
+/* eslint-disable @stylistic/js/indent */
 import { http, HttpResponse, HttpMethods } from "msw";
 import { API_URL } from "../../config/constants.js";
 

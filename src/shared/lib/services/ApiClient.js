@@ -1,4 +1,6 @@
-/* eslint-disable @stylistic/js/padded-blocks */
+/**
+ *
+ */
 export class ApiClient {
   static instance;
 
@@ -65,7 +67,9 @@ export class ApiClient {
         throw new Error(`Error ${response.status}`);
       }
       return this.#handleResponse(response);
-    } catch (e) {}
+    } catch (e) {
+      console.error("Fetch error:", e.message);
+    }
   }
 
   get(endpoint, params = {}, headers = {}, contentType = "application/json") {
