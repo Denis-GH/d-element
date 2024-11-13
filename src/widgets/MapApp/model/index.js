@@ -15,12 +15,15 @@ export class MapApp {
       zoom: 10,
       apiUrl: "https://api-maps.yandex.ru/2.1/?apikey",
     });
+
     this.yandexMap
       .initMap()
       .then((res) => {
         console.debug("Карта инциализирована", res, this.yandexMap.instance);
+        this.yandexMap.addMark();
       })
       .catch((e) => console.error(e));
+
     this.subscribeToStoreServiceChanges();
     this.fetchMarkers();
   }

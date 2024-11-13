@@ -1,4 +1,5 @@
 /* eslint-disable @stylistic/js/padded-blocks */
+import { checkMapInstance } from "../config/lib/checkMapInstance.js";
 import { getExternalScript } from "#shared/lib/utils/getExternalScript";
 
 export class YandexMap {
@@ -56,4 +57,14 @@ export class YandexMap {
       console.error("Ошибка при загрузке API Яндекс.Карт:", error);
     }
   }
+
+  addMark = checkMapInstance(() => {
+    const myPlacemark = new window.ymaps.Placemark([55.7, 37.6], {
+      balloonContentHeader: "Однажды",
+      balloonContentBody: "В студеную зимнюю пору",
+      balloonContentFooter: "Мы пошли в гору",
+      hintContent: "Зимние происшествия",
+    });
+    this.instance.geoObjects.add(myPlacemark);
+  });
 }
