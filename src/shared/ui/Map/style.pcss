@@ -1,0 +1,14 @@
+.yandexMap {
+  --yandexMapWidthPlacemark: 4.625rem;
+
+  &__customPlacemark {
+    display: grid;
+    place-items: center;
+    width: var(--yandexMapWidthPlacemark);
+    background-color: var(--colorWhite);
+    border-radius: 50%;
+    aspect-ratio: 1;
+    transition: all 0.3s;
+    box-shadow: var(--boxShadowDefault);
+  }
+}

@@ -21,6 +21,7 @@ export class MapApp {
     this.yandexMap
       .initMap()
       .then(async () => {
+        this.yandexMap.renderMarks(this.storeService.getMarkers()); //Рендерим метки из стора
         const markers = await this.fetchMarkers();
         this.saveMarkersToStore(markers);
       })
@@ -31,6 +32,7 @@ export class MapApp {
 
   handleMarkersChanged() {
     console.debug("markers changed", this.storeService.getMarkers());
+    this.yandexMap.renderMarks(this.storeService.getMarkers());
   }
 
   handleFiltersChanged() {
