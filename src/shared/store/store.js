@@ -14,40 +14,36 @@ export const createStore = (storageName) => {
           setMarkers: (markers) => set({ markers }),
           addMarker: (marker) =>
             set((state) => {
-              const exists = state.markers.some((m) => m?.id === marker.id);
+              const markerIndex = state.markers.findIndex((m) => m?.id === marker.id);
 
-              if (exists) {
-                console.warn(`Marker with ID ${marker.id} already exists.`);
-                return state;
+              if (markerIndex !== -1) {
+                const updatedMarkers = [...state.markers];
+                updatedMarkers[markerIndex] = { ...updatedMarkers[markerIndex], ...marker };
+                return { markers: updatedMarkers };
               }
 
-              return {
-                markers: [...state.markers, marker],
-              };
+              return { markers: [...state.markers, marker] };
             }),
-          addMarkerList: (markerList) =>
+          addMarkerList: (newMarkers) => {
             set((state) => {
-              const existsMarkers = [];
-              const newMarkers = [];
+              const updatedMarkers = [...state.markers];
 
-              markerList.forEach((marker) => {
-                if (state.markers.some((m) => m?.id === marker.id)) {
-                  existsMarkers.push(marker);
+              newMarkers.forEach((marker) => {
+                const markerIndex = updatedMarkers.findIndex((m) => m.id === marker.id);
+
+                if (markerIndex !== -1) {
+                  updatedMarkers[markerIndex] = {
+                    ...updatedMarkers[markerIndex],
+                    ...marker,
+                  };
                 } else {
-                  newMarkers.push(marker);
+                  updatedMarkers.push(marker);
                 }
               });
 
-              if (existsMarkers.length > 0) {
-                console.warn(
-                  `Marker(s) with ID ${existsMarkers.map((m) => m.id).join(", ")} already exists.`
-                );
-              }
-
-              return {
-                markers: [...state.markers, ...newMarkers],
-              };
-            }),
+              return { markers: updatedMarkers };
+            });
+          },
           removeMarker: (markerId) =>
             set((state) => ({
               markers: state.markers.filter((marker) => marker.id !== markerId),

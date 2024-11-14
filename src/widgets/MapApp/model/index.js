@@ -54,7 +54,6 @@ export class MapApp {
   async fetchMarkers() {
     try {
       const response = await this.apiClient.get(API_ENDPOINTS.marks.list);
-      console.debug(response, "!!!!!");
       return response?.data?.marks || [];
     } catch (error) {
       console.error("Error fetching markers:", error);

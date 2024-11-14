@@ -61,7 +61,7 @@ export class YandexMap {
   }
 
   addMark = checkMapInstance(() => {
-    const myPlacemark = new window.ymaps.Placemark([55.7, 37.6], {
+    const myPlacemark = new window.ymaps.Placemark([56.5, 57.9], {
       balloonContentHeader: "Однажды",
       balloonContentBody: "В студеную зимнюю пору",
       balloonContentFooter: "Мы пошли в гору",
