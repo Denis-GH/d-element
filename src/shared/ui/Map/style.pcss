@@ -1,7 +1,14 @@
 .yandexMap {
   --yandexMapWidthPlacemark: 4.625rem;
+  --yandexMapBallonLayoutWidth: 37.5rem;
+  --yandexMapBallonContentBgColor: var(--colorWhite);
+  --balloonLineHeight: 1.21;
+  --balloonMarginSmall: 1rem;
+  --balloonMarginMedium: 2rem;
+  --balloonMarginLarge: 2.5rem;
+  --balloonMarginExtraLarge: 3.5rem;
 
-  &__customPlacemark {
+  &__mark {
     display: grid;
     place-items: center;
     width: var(--yandexMapWidthPlacemark);
@@ -10,5 +17,70 @@
     aspect-ratio: 1;
     transition: all 0.3s;
     box-shadow: var(--boxShadowDefault);
+  }
+
+  &__balloonLayout {
+    position: relative;
+    width: var(--yandexMapBallonLayoutWidth);
+    background-color: var(--colorWhite);
+    translate: calc(-50% + var(--yandexMapWidthPlacemark) / 2) calc(-100% - 2rem);
+    border-radius: 2rem;
+    box-shadow: var(--boxShadowDefault);
+    overflow: hidden;
+  }
+
+  &__balloonContent {
+    width: var(--yandexMapBallonLayoutWidth);
+    background-color: var(--yandexMapBallonContentBgColor);
+    padding: 2px;
+  }
+
+  &__balloonBody {
+    padding-inline: 2.375rem;
+    font-size: 1.75rem;
+    line-height: var(--balloonLineHeight);
+  }
+
+  &__balloonPictures {
+    height: 19rem;
+    border: 1px solid rgb(200, 21, 21);
+    border-radius: 1.75rem;
+    margin-bottom: var(--balloonMarginMedium);
+  }
+
+  &__balloonTitle {
+    margin-bottom: var(--balloonMarginSmall);
+    font-weight: 700;
+    font-size: 2.5rem;
+    line-height: var(--balloonLineHeight);
+  }
+
+  &__balloonType {
+    margin-bottom: var(--balloonMarginSmall);
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  &__balloonAddress {
+    margin-bottom: var(--balloonMarginLarge);
+  }
+
+  &__balloonComment {
+    margin-bottom: var(--balloonMarginExtraLarge);
+  }
+
+  &__balloonActions {
+    margin-bottom: var(--balloonMarginLarge);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__balloonDelete {
+    width: 2rem;
+  }
+
+  &__balloonDelete svg {
+    width: 100%;
+    height: 100%;
   }
 }

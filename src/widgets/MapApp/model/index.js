@@ -1,5 +1,6 @@
 import { API_ENDPOINTS } from "#shared/config/constants";
 import { ApiClient } from "#shared/lib/services/ApiClient";
+import { yandexMapCustomEventNames } from "#shared/ui/Map/config/constans";
 import { YandexMap } from "#shared/ui/Map/model";
 
 /**
@@ -27,7 +28,24 @@ export class MapApp {
       })
       .catch((e) => console.error(e));
 
+    this.#bindYandexMapEvents();
     this.subscribeToStoreServiceChanges();
+  }
+
+  async handleMarkerClick(e) {
+    const {
+      detail: { id, mark },
+    } = e;
+    try {
+      const response = await this.apiClient.get(API_ENDPOINTS.marks.detail, {
+        id: id,
+      });
+      console.debug("response:", response);
+      const layout = this.yandexMap.getLayoutContentForBalloon(response);
+      this.yandexMap.renderCustomBalloon(id, mark, layout);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   handleMarkersChanged() {
@@ -70,5 +88,11 @@ export class MapApp {
     } else {
       console.warn("No markers found in the response");
     }
+  }
+
+  #bindYandexMapEvents() {
+    document.addEventListener(yandexMapCustomEventNames.markClicked, (e) => {
+      this.handleMarkerClick(e);
+    });
   }
 }

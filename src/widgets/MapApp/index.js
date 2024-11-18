@@ -1,2 +1,2 @@
 export { MapApp } from "./model/index.js";
-export { marksList } from "./api/mockData.js";
+export { markDetail, marksList } from "./api/mockData.js";
