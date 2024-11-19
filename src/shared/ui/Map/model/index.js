@@ -7,6 +7,7 @@ import {
 import { checkMapInstance } from "../config/lib/checkMapInstance.js";
 import { getExternalScript } from "#shared/lib/utils/getExternalScript";
 import { Icon } from "#shared/ui/Icons/index.js";
+import Swiper from "swiper/bundle";
 
 /**
  *
@@ -62,7 +63,7 @@ export class YandexMap {
         {
           build: function () {
             balloonContent.superclass.build.call(this);
-            // this.createSwiper(balloonId); TODO: доделать.
+            // this.createSwiper(id);
           },
           clear: function () {
             balloonContent.superclass.clear.call(this);
@@ -74,26 +75,22 @@ export class YandexMap {
     throw new Error("ymaps not ready");
   }
 
-  createSwiper(ballonId) {
+  createSwiper(balloonId) {
     try {
-      /*
-      const ballonContainer = document.querySelector(`[data-js-ballon=${ballonId}`);
-      const swiperEl = ballonContainer.querySelector(".swiper");
+      const balloonContainer = document.querySelector(`[data-js-balloon="${balloonId}"]`);
+      const swiperEl = balloonContainer.querySelector(".swiper");
       new Swiper(swiperEl, {
-        direction: "vertical",
+        direction: "horizontal",
         loop: true,
         pagination: {
           el: ".swiper-pagination",
+          clickable: true,
         },
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         },
-        scrollbar: {
-          el: ".swiper-scrollbar",
-        },
       });
-      */
     } catch (e) {
       console.error(e);
     }
@@ -205,10 +202,31 @@ export class YandexMap {
         children: `${info}`,
       })
     );
+
+    try {
+      this.createSwiper(id);
+    } catch (error) {
+      console.error("Ошибка при инициализации Swiper:", error);
+    }
   }
 
   getLayoutContentForBalloon(info) {
-    return `<div class="yandexMap__balloonPictures"></div>
+    const slides = info.data.images
+      .map(
+        (image) =>
+          `<div class="swiper-slide yandexMap__balloonSwiperSlide"><img src="${image}" alt="image"></div>`
+      )
+      .join("");
+    return `<div class="yandexMap__balloonPictures">
+              <div class="swiper yandexMap__balloonSwiper">
+                <div class="swiper-wrapper">
+                  ${slides}
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+              </div>
+            </div>
             <div class="yandexMap__balloonBody">
               <h2 class="yandexMap__balloonTitle">${info.data.title}</h2>
               <div class="yandexMap__balloonType">
@@ -221,7 +239,7 @@ export class YandexMap {
                 <button class="yandexMap__balloonEdit">Редактировать</button>
                 <button class="yandexMap__balloonDelete">${Icon({ id: "DeleteIcon" })}</button>
               </div>
-            </div>`; // TODO: вынесли классы в classNames
+            </div>`; // TODO: вынести классы в classNames
   }
 
   renderMarks = checkMapInstance((marks) => {
@@ -237,7 +255,7 @@ export class YandexMap {
     });
   });
 
-  handleCloseCurrentBallon() {
+  handleCloseCurrentBalloon() {
     if (this.currentBalloon) {
       this.currentBalloon.balloon.close();
     }
@@ -246,7 +264,7 @@ export class YandexMap {
 
   #bindEvents() {
     this.instance.events.add("click", () => {
-      this.handleCloseCurrentBallon(); //TODO: а надо ли? надо подумать
+      this.handleCloseCurrentBalloon(); //TODO: а надо ли? надо подумать
     });
   }
 }
