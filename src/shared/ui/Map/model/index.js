@@ -1,3 +1,4 @@
+import Swiper from "swiper/bundle";
 import {
   defaultClassNames,
   defaultIconShapeCfg,
@@ -7,7 +8,7 @@ import {
 import { checkMapInstance } from "../config/lib/checkMapInstance.js";
 import { getExternalScript } from "#shared/lib/utils/getExternalScript";
 import { Icon } from "#shared/ui/Icons/index.js";
-import Swiper from "swiper/bundle";
+import { Spinner } from "#shared/ui/Spinner/index.js";
 
 /**
  *
@@ -155,7 +156,7 @@ export class YandexMap {
         balloonLayout: this.getBalloonLayout(),
         balloonContentLayout: this.getBalloonContent({
           id,
-          children: "<p>Content</p>", // TODO: spinner
+          children: Spinner(),
         }),
         hasBalloon: true,
         iconLayout: this.getMarkerLayout(type),
