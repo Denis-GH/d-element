@@ -1,3 +1,29 @@
 html {
   font: var(--baseFontWeight) var(--baseFontSize) / var(--baseLineHeight) var(--baseFontFamily);
 }
+
+.mapApp {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 12rem 1fr;
+  grid-template-areas:
+    "nav ."
+    "map aside";
+  column-gap: 3rem;
+
+  &__navigation {
+    grid-area: nav;
+    display: grid;
+    grid-template-columns: auto repeat(5, 1fr);
+    place-items: center;
+  }
+
+  &__yandexMap {
+    grid-area: map;
+  }
+
+  &__actions {
+    grid-area: aside;
+  }
+}

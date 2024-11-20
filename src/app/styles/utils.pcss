@@ -19,6 +19,16 @@
   display: flex;
 }
 
+/* два раза - для повышения специфичности */
+.isDisabled.isDisabled {
+  opacity: 0.4;
+
+  &:hover {
+    cursor: not-allowed;
+    background-color: inherit;
+  }
+}
+
 .gap8 {
   gap: 1rem;
 }

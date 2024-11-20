@@ -9,7 +9,7 @@ export const Switch = ({
   extraAttrs = [],
   extraInputAttrs = [],
 }) => {
-  return `<label class="switch" ${extraClasses.join(" ")} ${getGeneratedAttrs(extraAttrs)}>
+  return `<label ${getGeneratedAttrs(extraAttrs)} class="switch ${extraClasses.join(" ")}">
               <span class="switch__label">${label}</span>
               <input type="checkbox" class="switch__input visuallyHidden" ${getGeneratedAttrs(extraInputAttrs)}>
               <span class="switch__slider"></span>
