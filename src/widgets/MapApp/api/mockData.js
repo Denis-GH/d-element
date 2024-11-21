@@ -2,7 +2,7 @@ export const markDetail = [
   {
     id: "1",
     title: "Al Capone",
-    type: "1",
+    type: "0",
     address: {
       city: "Челябинск",
       house: "12a",
@@ -38,10 +38,10 @@ export const markDetail = [
 
 export const marksList = {
   marks: [
-    { id: "1", type: "1", cords: [56.5, 57.9] },
-    { id: "2", type: "2", cords: [54.5, 57.9] },
-    { id: "14", type: "3", cords: [53.5, 57.9] },
-    { id: "15", type: "4", cords: [52.5, 57.9] },
-    { id: "16", type: "5", cords: [51.5, 57.9] },
+    { id: "1", type: "0", cords: [56.5, 57.9] },
+    { id: "2", type: "1", cords: [54.5, 57.9] },
+    { id: "14", type: "2", cords: [53.5, 57.9] },
+    { id: "15", type: "3", cords: [52.5, 57.9] },
+    { id: "16", type: "4", cords: [51.5, 57.9] },
   ],
 };

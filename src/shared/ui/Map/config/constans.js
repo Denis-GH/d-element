@@ -12,13 +12,13 @@ export const defaultIconShapeCfg = {
   radius: 20,
 };
 
-export const iconsPresets = {
-  1: Icon({ id: "BarIcon", color: "var(--colorRed)" }),
-  2: Icon({ id: "RestaurantIcon", color: "var(--colorOrange)" }),
-  3: Icon({ id: "TheaterIcon", color: "var(--colorPurple)" }),
-  4: Icon({ id: "CinemaIcon", color: "var(--colorGreenDark)" }),
-  5: Icon({ id: "MusicIcon", color: "var(--colorBlue)" }),
-};
+export const iconsPresets = [
+  Icon({ id: "BarIcon", color: "var(--colorRed)" }),
+  Icon({ id: "RestaurantIcon", color: "var(--colorOrange)" }),
+  Icon({ id: "TheaterIcon", color: "var(--colorPurple)" }),
+  Icon({ id: "CinemaIcon", color: "var(--colorGreenDark)" }),
+  Icon({ id: "MusicIcon", color: "var(--colorBlue)" }),
+];
 
 export const yandexMapCustomEventNames = {
   markClicked: "yandexMap::markClicked",
