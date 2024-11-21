@@ -263,6 +263,14 @@ export class YandexMap {
     this.currentBalloon = null;
   }
 
+  centerMapByCoords = checkMapInstance((coords, zoom = 15) => {
+    try {
+      this.instance.setCenter(coords, zoom);
+    } catch (e) {
+      console.error(e);
+    }
+  });
+
   #bindEvents() {
     this.instance.events.add("click", () => {
       this.handleCloseCurrentBalloon(); //TODO: а надо ли? надо подумать

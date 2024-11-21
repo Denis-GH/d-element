@@ -10,9 +10,12 @@ export class MapApp {
   constructor(storeService, apiClient = new ApiClient()) {
     this.storeService = storeService;
     this.apiClient = apiClient;
+    this.apiGeoUrl = "https://geocode-maps.yandex.ru/1.x/?apikey";
+    this.apiKey = "0ae22803-0158-4e0f-9dd1-6c79a36e28fa";
+    this.inputAddress = document.querySelector("#searchAddress"); //TODO: вынести в фильтр.
     this.yandexMap = new YandexMap({
       containerSelector: "#map1",
-      apiKey: "0ae22803-0158-4e0f-9dd1-6c79a36e28fa",
+      apiKey: this.apiKey,
       lang: "ru_RU",
       center: [56.5, 57.9],
       zoom: 10,
@@ -30,6 +33,7 @@ export class MapApp {
 
     this.#bindYandexMapEvents();
     this.subscribeToStoreServiceChanges();
+    this.#bindEvents();
   }
 
   async handleMarkerClick(e) {
@@ -54,6 +58,27 @@ export class MapApp {
 
   handleFiltersChanged() {
     console.debug("filters changed", this.storeService.getFilters());
+  }
+
+  handleCenterMapByAddress(address) {
+    //TODO: как-то проверять что yandexMap и переписать на apiClient (добавить параметр ingoreBaseUrl)
+    // this.apiClient.get(this.apiGeoUrl, {
+    //   apikey: this.apiKey,
+    //   geocode: encodeURIComponent(address),
+    //   format: "json",
+    // });
+    fetch(`${this.apiGeoUrl}=${this.apiKey}&geocode=${encodeURIComponent(address)}&format=json`)
+      .then((res) => res.json())
+      .then((data) => {
+        const coords =
+          data.response.GeoObjectCollection.featureMember[0]?.GeoObject?.Point?.pos?.split(" ");
+        if (coords) {
+          const lat = parseFloat(coords[1]);
+          const lon = parseFloat(coords[0]);
+          this.yandexMap.centerMapByCoords([lat, lon]);
+        }
+      })
+      .catch((e) => console.error(e));
   }
 
   subscribeToStoreServiceChanges() {
@@ -87,6 +112,13 @@ export class MapApp {
     } else {
       console.warn("No markers found in the response");
     }
+  }
+
+  #bindEvents() {
+    if (this.inputAddress)
+      this.inputAddress.addEventListener("input", (e) => {
+        this.handleCenterMapByAddress(e.target.value);
+      });
   }
 
   #bindYandexMapEvents() {

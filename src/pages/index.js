@@ -14,7 +14,7 @@ const indexPage = () => `
 <body>
   <div class="mapApp">
     <nav class="mapApp__navigation">
-      <input type="search">
+      <input type="search" id="searchAddress">
       ${Switch({
         label: "Бары",
         extraClasses: ["switch--isRightLabel"],
@@ -59,9 +59,9 @@ const indexPage = () => `
     <section id="map1" class="mapApp__yandexMap yandexMap"></section>
     <aside class="mapApp__actions">
       <ul>
-        <li>${Button({ text: "Добавить метку", iconSlot: Icon({ id: "LocationIcon" }), extraClasses: ["isDisabled"] })}</li>
-        <li>${Button({ text: "Построить маршрут", iconSlot: Icon({ id: "RouteIcon" }), extraClasses: ["isDisabled"] })}</li>
-        <li>${Button({ text: "Мои маршруты", iconSlot: Icon({ id: "DirectIcon" }), extraClasses: ["isDisabled"] })}</li>
+        <li>${Button({ text: "Добавить метку", iconSlot: Icon({ id: "LocationIcon" }), extraClasses: ["isDisabled"], extraAttrs: [{ name: "disabled" }] })}</li>
+        <li>${Button({ text: "Построить маршрут", iconSlot: Icon({ id: "RouteIcon" }), extraClasses: ["isDisabled"], extraAttrs: [{ name: "disabled" }] })}</li>
+        <li>${Button({ text: "Мои маршруты", iconSlot: Icon({ id: "DirectIcon" }), extraClasses: ["isDisabled"], extraAttrs: [{ name: "disabled" }] })}</li>
       </ul>
     </aside>
   </div>
