@@ -1,5 +1,6 @@
 import { API_ENDPOINTS } from "#shared/config/constants";
 import { ApiClient } from "#shared/lib/services/ApiClient";
+import { getDebouncedFn } from "#shared/lib/utils";
 import { yandexMapCustomEventNames } from "#shared/ui/Map/config/constans";
 import { YandexMap } from "#shared/ui/Map/model";
 
@@ -115,10 +116,15 @@ export class MapApp {
   }
 
   #bindEvents() {
-    if (this.inputAddress)
+    if (this.inputAddress) {
+      const debouncedHandleCenterMapByAddress = getDebouncedFn((value) => {
+        this.handleCenterMapByAddress(value);
+      }, 500);
+
       this.inputAddress.addEventListener("input", (e) => {
-        this.handleCenterMapByAddress(e.target.value);
+        debouncedHandleCenterMapByAddress(e.target.value);
       });
+    }
   }
 
   #bindYandexMapEvents() {
