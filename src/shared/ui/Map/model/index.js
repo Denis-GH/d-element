@@ -1,5 +1,6 @@
 import Swiper from "swiper/bundle";
 import {
+  centerMarkerIcon,
   defaultClassNames,
   defaultIconShapeCfg,
   iconsPresets,
@@ -32,6 +33,8 @@ export class YandexMap {
     this.apiUrl = apiUrl;
     this.instance = null;
     this.iconsPresets = iconsPresets;
+    this.centerMarkerIcon = centerMarkerIcon;
+    this.centerMarkerElement = null;
     this.currentBalloon = null;
     this.classNames = classNames ?? defaultClassNames;
     this.iconShapeCfg = iconShapeCfg ?? defaultIconShapeCfg;
@@ -122,6 +125,7 @@ export class YandexMap {
         suppressMapOpenBlock: true,
       }
     );
+    this.addCenterMarker();
     this.#bindEvents();
     return this.instance;
   }
@@ -182,6 +186,18 @@ export class YandexMap {
     });
 
     this.instance.geoObjects.add(placemark);
+  });
+
+  addCenterMarker = checkMapInstance(() => {
+    try {
+      const centerMarker = document.createElement("div");
+      centerMarker.className = this.classNames["centerMarker"];
+      centerMarker.innerHTML = this.centerMarkerIcon;
+      document.querySelector(this.containerSelector)?.appendChild(centerMarker);
+      this.centerMarkerElement = centerMarker;
+    } catch (e) {
+      console.error("Ошибка при добавлении центральной метки:", e);
+    }
   });
 
   handleMarkerClick(id, e) {

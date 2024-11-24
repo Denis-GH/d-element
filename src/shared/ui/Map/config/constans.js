@@ -1,9 +1,12 @@
 import { Icon } from "#shared/ui/Icons";
 
+export const centerMarkerIcon = Icon({ id: "CenterMapIcon", color: "var(--colorGray)" });
+
 export const defaultClassNames = {
   balloonContent: "yandexMap__balloonContent",
   balloonLayout: "yandexMap__balloonLayout",
   mark: "yandexMap__mark",
+  centerMarker: "yandexMap__centerMarker",
 };
 
 export const defaultIconShapeCfg = {
