@@ -8,7 +8,7 @@ import {
 } from "../config/constans.js";
 import { checkMapInstance } from "../config/lib/checkMapInstance.js";
 import { getExternalScript } from "#shared/lib/utils/getExternalScript";
-import { Icon } from "#shared/ui/Icons/index.js";
+import { Icon } from "#shared/ui/Icons/index.js"; // TODO: вынести в iconsPresets
 import { Spinner } from "#shared/ui/Spinner/index.js";
 
 /**
@@ -26,6 +26,7 @@ export class YandexMap {
     iconShapeCfg,
   }) {
     this.containerSelector = containerSelector;
+    this.containerMap = document.querySelector(this.containerSelector);
     this.apiKey = apiKey;
     this.center = center;
     this.zoom = zoom;
@@ -35,7 +36,6 @@ export class YandexMap {
     this.iconsPresets = iconsPresets;
     this.centerMarkerIcon = centerMarkerIcon;
     this.centerMarkerElement = null;
-    this.currentBalloon = null;
     this.classNames = classNames ?? defaultClassNames;
     this.iconShapeCfg = iconShapeCfg ?? defaultIconShapeCfg;
   }
@@ -114,7 +114,7 @@ export class YandexMap {
 
   #createMap() {
     this.instance = new window.ymaps.Map(
-      document.querySelector(this.containerSelector),
+      this.containerMap,
       {
         center: this.center,
         zoom: this.zoom,
@@ -165,24 +165,15 @@ export class YandexMap {
         hasBalloon: true,
         iconLayout: this.getMarkerLayout(type),
         iconShape: this.iconShapeCfg,
+        hideIconOnBalloonOpen: false,
       }
     );
 
     placemark.events.add("click", (event) => {
-      if (onClick && typeof onClick === "function") onClick(id, event);
-    });
-
-    placemark.events.add("balloonopen", () => {
-      // Если на карте уже открыт балун, закрываем его
-      if (this.currentBalloon) {
-        this.currentBalloon.balloon.close();
+      if (this.instance.balloon.isOpen()) {
+        return;
       }
-      // Обновляем ссылку на текущий открытый балун
-      this.currentBalloon = placemark;
-    });
-
-    placemark.events.add("balloonclose", () => {
-      this.currentBalloon = null;
+      if (onClick && typeof onClick === "function") onClick(id, event);
     });
 
     this.instance.geoObjects.add(placemark);
@@ -193,7 +184,7 @@ export class YandexMap {
       const centerMarker = document.createElement("div");
       centerMarker.className = this.classNames["centerMarker"];
       centerMarker.innerHTML = this.centerMarkerIcon;
-      document.querySelector(this.containerSelector)?.appendChild(centerMarker);
+      this.containerMap?.appendChild(centerMarker);
       this.centerMarkerElement = centerMarker;
     } catch (e) {
       console.error("Ошибка при добавлении центральной метки:", e);
@@ -208,7 +199,7 @@ export class YandexMap {
         mark: targetPlacemark,
       },
     });
-    document.dispatchEvent(customEvent);
+    this.containerMap.dispatchEvent(customEvent);
   }
 
   renderCustomBalloon(id, mark, info) {
@@ -260,6 +251,7 @@ export class YandexMap {
   }
 
   renderMarks = checkMapInstance((marks) => {
+    this.clearMap();
     marks.forEach((mark) => {
       this.addMark({
         id: mark.id,
@@ -272,12 +264,9 @@ export class YandexMap {
     });
   });
 
-  handleCloseCurrentBalloon() {
-    if (this.currentBalloon) {
-      this.currentBalloon.balloon.close();
-    }
-    this.currentBalloon = null;
-  }
+  clearMap = checkMapInstance(() => {
+    this.instance.geoObjects.removeAll();
+  });
 
   centerMapByCoords = checkMapInstance((coords, zoom = 15) => {
     try {
@@ -289,7 +278,7 @@ export class YandexMap {
 
   #bindEvents() {
     this.instance.events.add("click", () => {
-      this.handleCloseCurrentBalloon(); //TODO: а надо ли? надо подумать
+      this.instance.balloon.close();
     });
   }
 }

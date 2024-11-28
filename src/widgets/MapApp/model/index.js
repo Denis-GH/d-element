@@ -128,7 +128,7 @@ export class MapApp {
   }
 
   #bindYandexMapEvents() {
-    document.addEventListener(yandexMapCustomEventNames.markClicked, (e) => {
+    this.yandexMap?.containerMap?.addEventListener(yandexMapCustomEventNames.markClicked, (e) => {
       this.handleMarkerClick(e);
     });
   }
