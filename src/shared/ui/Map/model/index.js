@@ -1,6 +1,5 @@
 import Swiper from "swiper/bundle";
 import {
-  centerMarkerIcon,
   defaultClassNames,
   defaultIconShapeCfg,
   iconsPresets,
@@ -34,7 +33,6 @@ export class YandexMap {
     this.apiUrl = apiUrl;
     this.instance = null;
     this.iconsPresets = iconsPresets;
-    this.centerMarkerIcon = centerMarkerIcon;
     this.centerMarkerElement = null;
     this.classNames = classNames ?? defaultClassNames;
     this.iconShapeCfg = iconShapeCfg ?? defaultIconShapeCfg;
@@ -183,7 +181,7 @@ export class YandexMap {
     try {
       const centerMarker = document.createElement("div");
       centerMarker.className = this.classNames["centerMarker"];
-      centerMarker.innerHTML = this.centerMarkerIcon;
+      centerMarker.innerHTML = this.iconsPresets.centerMarker;
       this.containerMap?.appendChild(centerMarker);
       this.centerMarkerElement = centerMarker;
     } catch (e) {

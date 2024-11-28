@@ -1,3 +1,4 @@
+import { PlaceSwitchGroup } from "#features/PlaceSwitchGroup";
 import { Button, Icon, Select, Switch } from "#shared/ui/index";
 
 /**
@@ -13,49 +14,9 @@ const indexPage = () => `
 </head>
 <body>
   <div class="mapApp">
-    <nav class="mapApp__navigation">
-      <input type="search" id="searchAddress">
-      ${Switch({
-        label: "Бары",
-        extraClasses: ["switch--isRightLabel"],
-        extraInputAttrs: [
-          { name: "name", value: "rememberMe" },
-          { name: "form", value: "formAuth" },
-        ],
-      })}
-      ${Switch({
-        label: "Рестораны",
-        extraClasses: ["switch--isRightLabel"],
-        extraInputAttrs: [
-          { name: "name", value: "rememberMe" },
-          { name: "form", value: "formAuth" },
-        ],
-      })}
-      ${Switch({
-        label: "ТРК",
-        extraClasses: ["switch--isRightLabel"],
-        extraInputAttrs: [
-          { name: "name", value: "rememberMe" },
-          { name: "form", value: "formAuth" },
-        ],
-      })}
-      ${Switch({
-        label: "Театры",
-        extraClasses: ["switch--isRightLabel"],
-        extraInputAttrs: [
-          { name: "name", value: "rememberMe" },
-          { name: "form", value: "formAuth" },
-        ],
-      })}
-      ${Switch({
-        label: "Кино",
-        extraClasses: ["switch--isRightLabel"],
-        extraInputAttrs: [
-          { name: "name", value: "rememberMe" },
-          { name: "form", value: "formAuth" },
-        ],
-      })}
-    </nav>
+
+    ${PlaceSwitchGroup()}
+
     <section id="map1" class="mapApp__yandexMap yandexMap"></section>
     <aside class="mapApp__actions">
       <ul>

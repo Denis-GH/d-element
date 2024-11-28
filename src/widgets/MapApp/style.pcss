@@ -1,0 +1,22 @@
+.mapApp {
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 12rem 1fr;
+  grid-template-areas:
+    "nav ."
+    "map aside";
+  column-gap: 3rem;
+
+  &__navigation {
+    grid-area: nav;
+  }
+
+  &__yandexMap {
+    grid-area: map;
+  }
+
+  &__actions {
+    grid-area: aside;
+  }
+}

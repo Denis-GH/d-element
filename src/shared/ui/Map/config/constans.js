@@ -1,7 +1,5 @@
 import { Icon } from "#shared/ui/Icons";
 
-export const centerMarkerIcon = Icon({ id: "CenterMapIcon", color: "var(--colorGray)" });
-
 export const defaultClassNames = {
   balloonContent: "yandexMap__balloonContent",
   balloonLayout: "yandexMap__balloonLayout",
@@ -15,13 +13,14 @@ export const defaultIconShapeCfg = {
   radius: 20,
 };
 
-export const iconsPresets = [
-  Icon({ id: "BarIcon", color: "var(--colorRed)" }),
-  Icon({ id: "RestaurantIcon", color: "var(--colorOrange)" }),
-  Icon({ id: "TheaterIcon", color: "var(--colorPurple)" }),
-  Icon({ id: "CinemaIcon", color: "var(--colorGreenDark)" }),
-  Icon({ id: "MusicIcon", color: "var(--colorBlue)" }),
-];
+export const iconsPresets = {
+  bars: Icon({ id: "BarIcon", color: "var(--colorRed)" }),
+  restaurant: Icon({ id: "RestaurantIcon", color: "var(--colorOrange)" }),
+  theater: Icon({ id: "TheaterIcon", color: "var(--colorPurple)" }),
+  cinema: Icon({ id: "CinemaIcon", color: "var(--colorGreenDark)" }),
+  trk: Icon({ id: "MusicIcon", color: "var(--colorBlue)" }),
+  centerMarker: Icon({ id: "CenterMapIcon", color: "var(--colorGray)" }),
+};
 
 export const yandexMapCustomEventNames = {
   markClicked: "yandexMap::markClicked",

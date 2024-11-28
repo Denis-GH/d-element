@@ -1,6 +1,6 @@
+import { FilterManager } from "#features/Filter/model";
 import { API_ENDPOINTS } from "#shared/config/constants";
 import { ApiClient } from "#shared/lib/services/ApiClient";
-import { getDebouncedFn } from "#shared/lib/utils";
 import { yandexMapCustomEventNames } from "#shared/ui/Map/config/constans";
 import { YandexMap } from "#shared/ui/Map/model";
 
@@ -13,7 +13,7 @@ export class MapApp {
     this.apiClient = apiClient;
     this.apiGeoUrl = "https://geocode-maps.yandex.ru/1.x/?apikey";
     this.apiKey = "0ae22803-0158-4e0f-9dd1-6c79a36e28fa";
-    this.inputAddress = document.querySelector("#searchAddress"); //TODO: вынести в фильтр.
+
     this.yandexMap = new YandexMap({
       containerSelector: "#map1",
       apiKey: this.apiKey,
@@ -23,20 +23,35 @@ export class MapApp {
       apiUrl: "https://api-maps.yandex.ru/2.1/?apikey",
     });
 
+    this.filterManager = new FilterManager({
+      filterName: `marks`,
+      onUpdate: (changedData) => this.handleFilterChanged(changedData),
+    });
+
+    this.filterManager.applyFilters(this.storeService.getFilters());
+
     this.yandexMap
       .initMap()
       .then(async () => {
-        this.yandexMap.renderMarks(this.storeService.getMarkers()); //Рендерим метки из стора
+        this.yandexMap.renderMarks(this.getFilteredMarkers()); //Рендерим метки из стора по фильтрам
         const markers = await this.fetchMarkers();
         const filters = await this.fetchFiltersCfg();
         this.saveMarkersToStore(markers);
         this.saveFiltersToStore(filters);
+        this.filterManager.applyFilters(filters);
       })
       .catch((e) => console.error(e));
 
     this.#bindYandexMapEvents();
     this.subscribeToStoreServiceChanges();
-    this.#bindEvents();
+  }
+
+  handleFilterChanged(changeData) {
+    //TODO: есть замечение, касательно того, что мы всегда подвязываемся к полю inputs, а если у нас будет несколько фильтров? Нужно будет подумать над этим.
+    //Тут же необходимо делать проверку если менялось поле ввода адреса и центрировать карту
+    const currentState = this.storeService.getFilters().inputs;
+    const updatedState = { ...currentState, ...changeData };
+    this.storeService.updateStore("setFilters", { inputs: updatedState });
   }
 
   async fetchFiltersCfg() {
@@ -73,13 +88,24 @@ export class MapApp {
     }
   }
 
-  handleMarkersChanged() {
-    console.debug("markers changed", this.storeService.getMarkers());
-    this.yandexMap.renderMarks(this.storeService.getMarkers());
+  getFilteredMarkers() {
+    // Получаем активные фильтры из состояния хранилища
+    const activeFilters = this.storeService.getFilters().inputs;
+    // Фильтруем метки, оставляем только те, для которых фильтры включены (isChecked: true)
+    const filteredMarkers = this.storeService.getMarkers().filter((marker) => {
+      // Проверяем, включен ли фильтр для типа метки
+      return activeFilters[marker.type]?.isChecked;
+    });
+    return filteredMarkers;
   }
 
-  handleFiltersChanged() {
-    console.debug("filters changed", this.storeService.getFilters());
+  handleMarkersChangedInStore() {
+    console.debug("markers changed", this.storeService.getMarkers());
+    // this.yandexMap.renderMarks(this.storeService.getMarkers());
+  }
+
+  handleFiltersChangedInStore() {
+    this.yandexMap.renderMarks(this.getFilteredMarkers());
   }
 
   handleCenterMapByAddress(address) {
@@ -99,10 +125,10 @@ export class MapApp {
 
   subscribeToStoreServiceChanges() {
     this.markerSubscription = this.storeService.subscribeToMarkersChanged(() =>
-      this.handleMarkersChanged()
+      this.handleMarkersChangedInStore()
     );
     this.filterSubscription = this.storeService.subscribeToFiltersChanged(() =>
-      this.handleFiltersChanged()
+      this.handleFiltersChangedInStore()
     );
   }
 
@@ -127,18 +153,6 @@ export class MapApp {
       console.debug("Markers fetched and stored:", markers);
     } else {
       console.warn("No markers found in the response");
-    }
-  }
-
-  #bindEvents() {
-    if (this.inputAddress) {
-      const debouncedHandleCenterMapByAddress = getDebouncedFn((value) => {
-        this.handleCenterMapByAddress(value);
-      }, 500);
-
-      this.inputAddress.addEventListener("input", (e) => {
-        debouncedHandleCenterMapByAddress(e.target.value);
-      });
     }
   }
 
