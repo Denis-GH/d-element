@@ -1,6 +1,7 @@
 import { getResponseMock } from "./lib/index.js";
 import { API_ENDPOINTS } from "../config/constants.js";
 import { markDetail, marksList } from "#widgets/MapApp/index.js";
+import { filterCfg } from "#widgets/MapApp/api/mockData.js";
 
 export const handlers = [
   getResponseMock({
@@ -15,5 +16,10 @@ export const handlers = [
       queryParams: { id: markInfo.id },
       data: markInfo,
     });
+  }),
+  getResponseMock({
+    type: "GET",
+    endpoint: API_ENDPOINTS.config.list,
+    data: filterCfg,
   }),
 ];

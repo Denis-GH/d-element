@@ -1,3 +1,38 @@
+export const filterCfg = {
+  inputs: {
+    search: {
+      value: null,
+      isChecked: "null",
+      isDisabled: "null",
+    },
+    bars: {
+      value: null,
+      isChecked: false,
+      isDisabled: false,
+    },
+    restaurant: {
+      value: null,
+      isChecked: false,
+      isDisabled: false,
+    },
+    music: {
+      value: null,
+      isChecked: false,
+      isDisabled: false,
+    },
+    theater: {
+      value: null,
+      isChecked: false,
+      isDisabled: false,
+    },
+    cinema: {
+      value: null,
+      isChecked: false,
+      isDisabled: false,
+    },
+  },
+};
+
 export const markDetail = [
   {
     id: "1",

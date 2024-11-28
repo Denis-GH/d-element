@@ -28,13 +28,34 @@ export class MapApp {
       .then(async () => {
         this.yandexMap.renderMarks(this.storeService.getMarkers()); //Рендерим метки из стора
         const markers = await this.fetchMarkers();
+        const filters = await this.fetchFiltersCfg();
         this.saveMarkersToStore(markers);
+        this.saveFiltersToStore(filters);
       })
       .catch((e) => console.error(e));
 
     this.#bindYandexMapEvents();
     this.subscribeToStoreServiceChanges();
     this.#bindEvents();
+  }
+
+  async fetchFiltersCfg() {
+    try {
+      const response = await this.apiClient.get(API_ENDPOINTS.config.list);
+      return response?.data || {};
+    } catch (error) {
+      console.error("Error fetching filters:", error);
+      return {};
+    }
+  }
+
+  saveFiltersToStore(filters) {
+    if (Object.keys(filters).length > 0) {
+      this.storeService.updateStore("setFilters", filters);
+      console.debug("Filters fetched and stored:", filters);
+    } else {
+      console.warn("No filters found in the response");
+    }
   }
 
   async handleMarkerClick(e) {
@@ -62,12 +83,6 @@ export class MapApp {
   }
 
   handleCenterMapByAddress(address) {
-    //TODO: как-то проверять что yandexMap и переписать на apiClient (добавить параметр ingoreBaseUrl)
-    // this.apiClient.get(this.apiGeoUrl, {
-    //   apikey: this.apiKey,
-    //   geocode: encodeURIComponent(address),
-    //   format: "json",
-    // });
     fetch(`${this.apiGeoUrl}=${this.apiKey}&geocode=${encodeURIComponent(address)}&format=json`)
       .then((res) => res.json())
       .then((data) => {
