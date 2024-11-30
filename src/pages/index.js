@@ -28,9 +28,6 @@ const indexPage = () => `
   </div>
   
 <!--
-
-${Button({ text: "Да", iconSlot: Icon({ id: "YesIcon" }), extraClasses: ["btn--isGreenLightIcon"] })}
-${Button({ text: "Нет", iconSlot: Icon({ id: "NoIcon" }), extraClasses: ["btn--isRedIcon"] })}
   
   ${Select({
     cfg: {

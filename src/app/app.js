@@ -1,5 +1,6 @@
 import "./styles.js";
 import { API_URL } from "#shared/config/constants";
+import { ModalManager } from "#shared/lib/plugins/modalManager.js";
 import { ApiClient } from "#shared/lib/services/ApiClient.js";
 import { StoreService } from "#shared/lib/services/StoreService.js";
 import { SelectModel } from "#shared/ui/Select/model/index.js";
@@ -32,4 +33,5 @@ Promise.all([initMSW(), domReady()]).then(() => {
   window.App.SelectModel = SelectModel;
   const storeService = new StoreService("store-map-markers");
   new MapApp(storeService, apiClient);
+  new ModalManager().openConfirmModal({ message: "Сохранить изменения?" });
 });
