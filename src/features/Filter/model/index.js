@@ -1,5 +1,8 @@
 import { getDebouncedFn } from "#shared/lib/utils";
 
+/**
+ *
+ */
 export class FilterManager {
   constructor({ filterName, onUpdate, filterCfg, debounceDelayForInput = 1000 }) {
     this.attrs = {
@@ -17,10 +20,12 @@ export class FilterManager {
     this.debouncedHandleEvent = getDebouncedFn(this.handleEvent, debounceDelayForInput).bind(this);
     this.#bindFilterEvents();
   }
+
   #bindFilterEvents() {
     document.addEventListener("input", this.debouncedHandleEvent, true);
     document.addEventListener("change", (e) => this.handleEvent(e), true);
   }
+
   #notifyChange(changeData) {
     if (typeof this.onUpdate === "function") {
       this.onUpdate(changeData);
@@ -30,6 +35,7 @@ export class FilterManager {
     });
     this.container.dispatchEvent(event);
   }
+
   // Обработчик изменения состояния фильтра
   handleEvent(event) {
     const target = event.target;
@@ -52,6 +58,7 @@ export class FilterManager {
     // Оповещаем о произошедших изменениях
     this.#notifyChange({ [filterName]: changeData });
   }
+
   //Обновления UI
   applyFilters(filtersCfg) {
     //TODO: опять подвязка на inputs. Нужно подумать над этим

@@ -1,4 +1,4 @@
-import { FilterManager } from "#features/Filter/model";
+import { FilterManager } from "#features/Filter";
 import { API_ENDPOINTS } from "#shared/config/constants";
 import { ApiClient } from "#shared/lib/services/ApiClient";
 import { yandexMapCustomEventNames } from "#shared/ui/Map/config/constans";
@@ -49,6 +49,9 @@ export class MapApp {
   handleFilterChanged(changeData) {
     //TODO: есть замечение, касательно того, что мы всегда подвязываемся к полю inputs, а если у нас будет несколько фильтров? Нужно будет подумать над этим.
     //Тут же необходимо делать проверку если менялось поле ввода адреса и центрировать карту
+    if (changeData.search) {
+      this.handleCenterMapByAddress(changeData.search.value);
+    }
     const currentState = this.storeService.getFilters().inputs;
     const updatedState = { ...currentState, ...changeData };
     this.storeService.updateStore("setFilters", { inputs: updatedState });
