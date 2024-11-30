@@ -1,5 +1,5 @@
 import { PlaceSwitchGroup } from "#features/PlaceSwitchGroup";
-import { Button, Icon, Select, Switch } from "#shared/ui/index";
+import { Button, Icon, Select } from "#shared/ui/index";
 
 /**
  *

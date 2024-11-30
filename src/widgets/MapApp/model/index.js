@@ -48,7 +48,6 @@ export class MapApp {
 
   handleFilterChanged(changeData) {
     //TODO: есть замечение, касательно того, что мы всегда подвязываемся к полю inputs, а если у нас будет несколько фильтров? Нужно будет подумать над этим.
-    //Тут же необходимо делать проверку если менялось поле ввода адреса и центрировать карту
     if (changeData.search) {
       this.handleCenterMapByAddress(changeData.search.value);
     }

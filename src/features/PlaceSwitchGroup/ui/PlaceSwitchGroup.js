@@ -1,6 +1,6 @@
 import { switchConfigDefault } from "../config/index.js";
 import { getGeneratedAttrs } from "#shared/lib/utils";
-import { Switch } from "#shared/ui/index.js";
+import { Icon, Switch } from "#shared/ui/index.js";
 /**
  * Компонент PlaceSwitchGroup с прокидываемым конфигом
  * @param {Object} param0 - параметры компонента
@@ -33,7 +33,10 @@ export const PlaceSwitchGroup = ({
     .join(""); // Собираем все элементы в одну строку
   return `
     <nav class="mapApp__placeSwitchGroup ${extraClasses.join(" ")}" ${getGeneratedAttrs(extraAttrs)} data-js-filter="marks">
-        <input type="text" name="search" data-js-filter-item="search" data-js-filter-parent-name="marks"/>
+      <div class="searchBox">
+        <input type="search" name="search" placeholder="Введите адрес" data-js-filter-item="search" data-js-filter-parent-name="marks" class="searchBox__input">
+        <div class="searchBox__icon">${Icon({ id: "SearchIcon" })}</div>
+      </div>
         ${switchElements}
     </nav>
   `;
