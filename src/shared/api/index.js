@@ -22,4 +22,9 @@ export const handlers = [
     endpoint: API_ENDPOINTS.config.list,
     data: filterCfg,
   }),
+  getResponseMock({
+    type: "DELETE",
+    endpoint: API_ENDPOINTS.marks.delete,
+    data: null,
+  }),
 ];

@@ -6,8 +6,8 @@ import {
   yandexMapCustomEventNames,
 } from "../config/constans.js";
 import { checkMapInstance } from "../config/lib/checkMapInstance.js";
+import { DeleteMarkBtn } from "#features/Marks/index.js";
 import { getExternalScript } from "#shared/lib/utils/getExternalScript";
-import { Icon } from "#shared/ui/Icons/index.js"; // TODO: вынести в iconsPresets
 import { Spinner } from "#shared/ui/Spinner/index.js";
 
 /**
@@ -216,7 +216,7 @@ export class YandexMap {
     }
   }
 
-  getLayoutContentForBalloon(info) {
+  getLayoutContentForBalloon(id, info) {
     const slides = info.data.images
       .map(
         (image) =>
@@ -243,7 +243,7 @@ export class YandexMap {
               <div class="yandexMap__balloonComment">${info.data.comment}</div>
               <div class="yandexMap__balloonActions">
                 <button class="yandexMap__balloonEdit">Редактировать</button>
-                <button class="yandexMap__balloonDelete">${Icon({ id: "DeleteIcon" })}</button>
+                ${DeleteMarkBtn({ markId: id, extraClasses: ["yandexMap__balloonDelete"] })}
               </div>
             </div>`; // TODO: вынести классы в classNames
   }

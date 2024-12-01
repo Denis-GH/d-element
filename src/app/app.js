@@ -5,6 +5,7 @@ import { ApiClient } from "#shared/lib/services/ApiClient.js";
 import { StoreService } from "#shared/lib/services/StoreService.js";
 import { SelectModel } from "#shared/ui/Select/model/index.js";
 import { MapApp } from "#widgets/MapApp/index.js";
+import { DeleteMarkModel } from "#features/Marks/DeleteMark/model/index.js";
 
 async function initMSW() {
   if (process.env.NODE_ENV === "development") {
@@ -28,10 +29,10 @@ function domReady() {
 
 Promise.all([initMSW(), domReady()]).then(() => {
   window.App = {};
-  const apiClient = new ApiClient(API_URL);
+  window.App.ApiClient = new ApiClient(API_URL);
   window.App.Selects = new SelectModel();
   window.App.SelectModel = SelectModel;
-  const storeService = new StoreService("store-map-markers");
-  new MapApp(storeService, apiClient);
-  new ModalManager().openConfirmModal({ message: "Сохранить изменения?" });
+  window.App.StoreServiceForMap = new StoreService("store-map-markers");
+  new MapApp(window.App.StoreServiceForMap, window.App.ApiClient);
+  new DeleteMarkModel(window.App.StoreServiceForMap);
 });

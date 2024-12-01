@@ -83,7 +83,7 @@ export class MapApp {
       const response = await this.apiClient.get(API_ENDPOINTS.marks.detail, {
         id: id,
       });
-      const layout = this.yandexMap.getLayoutContentForBalloon(response);
+      const layout = this.yandexMap.getLayoutContentForBalloon(id, response);
       this.yandexMap.renderCustomBalloon(id, mark, layout);
     } catch (e) {
       console.error(e);
@@ -103,7 +103,7 @@ export class MapApp {
 
   handleMarkersChangedInStore() {
     console.debug("markers changed", this.storeService.getMarkers());
-    // this.yandexMap.renderMarks(this.storeService.getMarkers());
+    this.yandexMap.renderMarks(this.getFilteredMarkers());
   }
 
   handleFiltersChangedInStore() {
