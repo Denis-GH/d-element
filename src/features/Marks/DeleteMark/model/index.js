@@ -1,6 +1,6 @@
+import { deleteMark } from "../api/index.js";
 import { ModalManager } from "#shared/lib/plugins/modalManager";
 import { getAttr } from "#shared/lib/utils";
-import { deleteMark } from "../api/index.js";
 
 /**
  *
@@ -9,10 +9,12 @@ export class DeleteMarkModel {
   static selectors = {
     deleteMarkBtn: "[data-js-delete-mark-btn]",
   };
+
   constructor(storeService) {
     this.storeService = storeService;
     this.#bindEvents();
   }
+
   handleDeleteMark = (event) => {
     const button = event.target.closest(DeleteMarkModel.selectors.deleteMarkBtn);
     if (!button) {
@@ -44,6 +46,7 @@ export class DeleteMarkModel {
       },
     });
   };
+
   #bindEvents() {
     document.addEventListener("click", this.handleDeleteMark, true);
   }
