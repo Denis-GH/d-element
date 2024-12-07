@@ -2,6 +2,7 @@ import "./styles.js";
 import { DeleteMarkModel } from "#features/Marks/DeleteMark/model/index.js";
 import { UpdateMarkModel } from "#features/Marks/UpdateMark/model/index.js";
 import { API_URL } from "#shared/config/constants";
+import { FormHandler } from "#shared/lib/plugins/formHandler.js";
 import { ApiClient } from "#shared/lib/services/ApiClient.js";
 import { StoreService } from "#shared/lib/services/StoreService.js";
 import { SelectModel } from "#shared/ui/Select/model/index.js";
@@ -28,6 +29,10 @@ function domReady() {
 }
 
 Promise.all([initMSW(), domReady()]).then(() => {
+  document.addEventListener("submit", (e) => {
+    e.preventDefault();
+  });
+
   window.App = {};
   window.App.ApiClient = new ApiClient(API_URL);
   window.App.Selects = new SelectModel();
@@ -36,4 +41,5 @@ Promise.all([initMSW(), domReady()]).then(() => {
   new MapApp(window.App.StoreServiceForMap, window.App.ApiClient);
   new DeleteMarkModel(window.App.StoreServiceForMap);
   new UpdateMarkModel(window.App.StoreServiceForMap);
+  new FormHandler();
 });

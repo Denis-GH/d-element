@@ -6,7 +6,7 @@ import { Button, Icon, Select } from "#shared/ui";
  */
 export const UpdateMarkModalContent = ({ markInfo, url, method = "post" }) => {
   return `<div class="updateModalContent">
-  <form action="${url}" method="${method}">
+  <form data-js-form=${JSON.stringify({ url, method, showModalAfterSuccess: "#modalSuccess", redirectUrlAfterSuccess: "/test.html", delayBeforeRedirect: 3000 })}>
     <h3 class="updateModalContent__title">Редактировать метку</h3>
     <p class="updateModalContent__markTitle">${markInfo.title}</p>
     <div class="updateModalContent__info infoUpdateModalContent">
@@ -73,7 +73,7 @@ export const UpdateMarkModalContent = ({ markInfo, url, method = "post" }) => {
       <label class="infoUpdateModalContent__commentTitle" for="UpdateModalContentComment">
         Комментарий пользователя
       </label>
-      <textarea class="infoUpdateModalContent__comment" type="comment" id="UpdateModalContentComment" rows="5">${markInfo.comment}</textarea>
+      <textarea class="infoUpdateModalContent__comment" type="comment" id="UpdateModalContentComment" rows="5" name="comment">${markInfo.comment}</textarea>
       <div class="updateModalContent__actions">
         ${Button({
           text: "Сохранить",
@@ -82,6 +82,10 @@ export const UpdateMarkModalContent = ({ markInfo, url, method = "post" }) => {
             {
               name: "type",
               value: "submit",
+            },
+            {
+              name: "name",
+              value: "typeMark",
             },
           ],
         })}
