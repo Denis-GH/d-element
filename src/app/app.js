@@ -1,11 +1,11 @@
 import "./styles.js";
+import { DeleteMarkModel } from "#features/Marks/DeleteMark/model/index.js";
+import { UpdateMarkModel } from "#features/Marks/UpdateMark/model/index.js";
 import { API_URL } from "#shared/config/constants";
-import { ModalManager } from "#shared/lib/plugins/modalManager.js";
 import { ApiClient } from "#shared/lib/services/ApiClient.js";
 import { StoreService } from "#shared/lib/services/StoreService.js";
 import { SelectModel } from "#shared/ui/Select/model/index.js";
 import { MapApp } from "#widgets/MapApp/index.js";
-import { DeleteMarkModel } from "#features/Marks/DeleteMark/model/index.js";
 
 async function initMSW() {
   if (process.env.NODE_ENV === "development") {
@@ -35,4 +35,5 @@ Promise.all([initMSW(), domReady()]).then(() => {
   window.App.StoreServiceForMap = new StoreService("store-map-markers");
   new MapApp(window.App.StoreServiceForMap, window.App.ApiClient);
   new DeleteMarkModel(window.App.StoreServiceForMap);
+  new UpdateMarkModel(window.App.StoreServiceForMap);
 });

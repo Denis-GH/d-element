@@ -188,4 +188,15 @@ export class SelectModel {
     });
     SelectModel.instance = this;
   }
+
+  // Инициализировать селект вручную
+  static initSelect(node) {
+    const config = SelectConfig.getConfig(node);
+    return ChoicesInstance.createInstance(node, config);
+  }
+
+  // Получить экземпляр Choices для элемента
+  static getSelectInstance(node) {
+    return ChoicesInstance.getChoiceInstance(node);
+  }
 }

@@ -7,6 +7,7 @@ import {
 } from "../config/constans.js";
 import { checkMapInstance } from "../config/lib/checkMapInstance.js";
 import { DeleteMarkBtn } from "#features/Marks/index.js";
+import { UpdateMarkBtn } from "#features/Marks/UpdateMark/index.js";
 import { getExternalScript } from "#shared/lib/utils/getExternalScript";
 import { Spinner } from "#shared/ui/Spinner/index.js";
 
@@ -242,7 +243,7 @@ export class YandexMap {
               <div class="yandexMap__balloonAddress">${info.data.address.street}, ${info.data.address.house}</div>
               <div class="yandexMap__balloonComment">${info.data.comment}</div>
               <div class="yandexMap__balloonActions">
-                <button class="yandexMap__balloonEdit">Редактировать</button>
+                ${UpdateMarkBtn({ markInfo: info.data, extraClasses: ["yandexMap__balloonEdit"] })}
                 ${DeleteMarkBtn({ markId: id, extraClasses: ["yandexMap__balloonDelete"] })}
               </div>
             </div>`; // TODO: вынести классы в classNames

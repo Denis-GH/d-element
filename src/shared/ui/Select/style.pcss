@@ -3,7 +3,7 @@
   --selectBorder: 1px solid transparent;
   --selectBorderRadius: 1rem;
   --selectBorderColor: transparent;
-  --selectMaxWidth: 50%;
+  --selectMaxWidth: 100%;
   --selectMaxHeigthChoices: 23.5rem;
   border: none;
   width: 279px;
@@ -17,20 +17,21 @@
   }
   /* stylelint-enable selector-class-pattern */
 
-  &__inner {
+  &__inner&__inner {
     box-sizing: border-box;
     height: var(--selecteHight);
     min-height: unset;
     border: var(--selectBorder);
-    border-radius: var(--selectBorderRadius) !important;
-    border-color: var(--selectBorderColor) !important;
+    border-radius: var(--selectBorderRadius);
+    border-color: var(--selectBorderColor);
+    background-color: var(--colorGrayLight);
   }
 
   &__list {
     /* stylelint-disable-next-line selector-class-pattern */
-    &.is-active {
+    &&.is-active {
       border-radius: var(--selectBorderRadius);
-      border-color: transparent !important;
+      border-color: transparent;
       box-shadow: var(--boxShadowDefault);
       animation: collapseInnerChoices forwards 0.5s;
       overflow-y: auto;
@@ -60,7 +61,7 @@
 
     /* stylelint-disable-next-line selector-class-pattern */
     &.is-highlighted {
-      background-color: var(--colorGrayLight) !important;
+      background-color: var(--colorGrayLight);
     }
   }
 
