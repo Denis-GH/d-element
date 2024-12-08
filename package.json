@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --mode development --env API_URL=api/v1 --config webpack.config.mjs",
     "lint": "stylelint ./src/**/*.pcss && eslint ./src",
     "format": "npx prettier --write ./src",
