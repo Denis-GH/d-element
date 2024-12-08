@@ -10,7 +10,8 @@ const indexPage = () => `
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+  <title>CityMap</title>
 </head>
 <body>
   <div class="mapApp">
