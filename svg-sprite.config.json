@@ -1,5 +1,5 @@
 {
-  "dest": "./src/shared/ui/icons",
+  "dest": "./src/shared/assets",
   "log": "info",
   "shape": {
     "id": {
@@ -15,9 +15,6 @@
   },
   "svg": {
     "xmlDeclaration": false,
-    "doctypeDeclaration": false,
-    "rootAttributes": {
-      "class": "icons-sprite"
-    }
+    "doctypeDeclaration": false
   }
 }

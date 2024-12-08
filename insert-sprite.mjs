@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const spritePath = path.join(__dirname, "src/shared/ui/icons/sprite.svg"); // путь к сгенерированному спрайту
+const spritePath = path.join(__dirname, "src/shared/assets/sprite.svg"); // путь к сгенерированному спрайту
 const htmlPath = path.join(__dirname, "src/pages/index.js"); // путь к HTML-разметке
 
 // Читаем содержимое спрайта

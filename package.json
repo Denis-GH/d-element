@@ -8,7 +8,7 @@
     "lint": "stylelint ./src/**/*.pcss && eslint ./src",
     "format": "npx prettier --write ./src",
     "build": "webpack --mode production --config webpack.config.mjs",
-    "sprite": "svg-sprite --config svg-sprite.config.json src/shared/ui/Icons/ui/*.svg && node insert-sprite.mjs"
+    "sprite": "svg-sprite --config svg-sprite.config.json src/shared/assets/svg/*.svg && node insert-sprite.mjs"
   },
   "keywords": [],
   "type": "module",

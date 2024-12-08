@@ -6,8 +6,7 @@ import {
   yandexMapCustomEventNames,
 } from "../config/constans.js";
 import { checkMapInstance } from "../config/lib/checkMapInstance.js";
-import { DeleteMarkBtn } from "#features/Marks/index.js";
-import { UpdateMarkBtn } from "#features/Marks/UpdateMark/index.js";
+import { DeleteMarkBtn, UpdateMarkBtn } from "#features/Marks/index.js";
 import { getExternalScript } from "#shared/lib/utils/getExternalScript";
 import { Spinner } from "#shared/ui/Spinner/index.js";
 
