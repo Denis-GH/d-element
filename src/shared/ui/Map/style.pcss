@@ -2,7 +2,6 @@
   --yandexMapWidthPlacemark: 4.625rem;
   --yandexMapBallonLayoutWidth: 37.5rem;
   --yandexMapBallonContentBgColor: var(--colorWhite);
-  --balloonLineHeight: 1.21;
   --balloonMarginSmall: 1rem;
   --balloonMarginMedium: 2rem;
   --balloonMarginLarge: 2.5rem;
@@ -45,7 +44,6 @@
   &__balloonBody {
     padding-inline: 2.375rem;
     font-size: 1.75rem;
-    line-height: var(--balloonLineHeight);
   }
 
   &__balloonPictures {
@@ -101,7 +99,6 @@
     margin-bottom: var(--balloonMarginSmall);
     font-weight: 700;
     font-size: 2.5rem;
-    line-height: var(--balloonLineHeight);
   }
 
   &__balloonType {
@@ -127,6 +124,11 @@
   &__balloonDelete {
     position: relative;
     right: -2rem;
+  }
+
+  &__balloonEdit {
+    position: relative;
+    left: -2rem;
   }
 
   &__centerMarker {

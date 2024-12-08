@@ -27,11 +27,11 @@ export const UpdateMarkModalContent = ({ markInfo, url, method = "post" }) => {
             searchEnabled: false,
             choices: [
               {
-                value: "Бar",
+                value: "Бaр",
                 label: "Бар",
-                selected: markInfo.type === "bars",
+                selected: markInfo.type === "bar",
                 customProperties: {
-                  icon: Icon({ id: "CinemaIcon", color: "var(--colorPrimary)" }),
+                  icon: Icon({ id: "BarIcon", color: "var(--colorRed)" }),
                 },
               },
               {
@@ -39,23 +39,23 @@ export const UpdateMarkModalContent = ({ markInfo, url, method = "post" }) => {
                 label: "Ресторан",
                 selected: markInfo.type === "restaurant",
                 customProperties: {
-                  icon: Icon({ id: "CinemaIcon", color: "var(--colorPrimary)" }),
+                  icon: Icon({ id: "RestaurantIcon", color: "var(--colorOrange)" }),
                 },
               },
               {
                 value: "Ночной клуб",
                 label: "Ночной клуб",
-                selected: markInfo.type === "trk",
+                selected: markInfo.type === "club",
                 customProperties: {
-                  icon: Icon({ id: "CinemaIcon", color: "var(--colorPrimary)" }),
+                  icon: Icon({ id: "MusicIcon", color: "var(--colorBlue)" }),
                 },
               },
               {
                 value: "Театр",
                 label: "Театр",
-                selected: markInfo.type === "theatre",
+                selected: markInfo.type === "theater",
                 customProperties: {
-                  icon: Icon({ id: "CinemaIcon", color: "var(--colorPrimary)" }),
+                  icon: Icon({ id: "TheaterIcon", color: "var(--colorPurple)" }),
                 },
               },
               {
@@ -63,7 +63,7 @@ export const UpdateMarkModalContent = ({ markInfo, url, method = "post" }) => {
                 label: "Кино",
                 selected: markInfo.type === "cinema",
                 customProperties: {
-                  icon: Icon({ id: "CinemaIcon", color: "var(--colorPrimary)" }),
+                  icon: Icon({ id: "CinemaIcon", color: "var(--colorGreenDark)" }),
                 },
               },
             ],

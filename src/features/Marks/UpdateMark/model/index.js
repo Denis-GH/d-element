@@ -22,7 +22,6 @@ export class UpdateMarkModel {
     if (!parent) return;
     try {
       const markInfo = JSON.parse(parent.getAttribute(this.attrs.updateMark));
-      console.debug(markInfo, "!!!!!");
       ModalManager.getInstance().open(
         UpdateMarkModalContent({
           markInfo,

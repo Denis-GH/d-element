@@ -18,7 +18,7 @@ export class YandexMap {
   constructor({
     containerSelector,
     apiKey,
-    center = [55.751574, 37.573856],
+    center = [55.175016, 61.402001],
     zoom = 10,
     lang = "ru_RU",
     apiUrl = "https://api-maps.yandex.ru/2.1/?apikey",
@@ -237,8 +237,8 @@ export class YandexMap {
             <div class="yandexMap__balloonBody">
               <h2 class="yandexMap__balloonTitle">${info.data.title}</h2>
               <div class="yandexMap__balloonType">
-                <div class="yandexMap__balloonIcon">${this.iconsPresets[info.data.type] ? this.iconsPresets[info.data.type] : ""}</div>
-                <div class="yandexMap__balloonName"></div>
+                <div class="yandexMap__balloonIcon">${this.iconsPresets[info.data.type] || ""}</div>
+                <div class="yandexMap__balloonName">${info.data.type || ""}</div>
               </div>
               <div class="yandexMap__balloonAddress">${info.data.address.street}, ${info.data.address.house}</div>
               <div class="yandexMap__balloonComment">${info.data.comment}</div>

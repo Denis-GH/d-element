@@ -18,8 +18,8 @@ export class MapApp {
       containerSelector: "#map1",
       apiKey: this.apiKey,
       lang: "ru_RU",
-      center: [56.5, 57.9],
-      zoom: 10,
+      center: [55.175016, 61.402001],
+      zoom: 16,
       apiUrl: "https://api-maps.yandex.ru/2.1/?apikey",
     });
 
@@ -27,7 +27,6 @@ export class MapApp {
       filterName: `marks`,
       onUpdate: (changedData) => this.handleFilterChanged(changedData),
     });
-
     this.filterManager.applyFilters(this.storeService.getFilters());
 
     this.yandexMap

@@ -14,11 +14,11 @@ export const defaultIconShapeCfg = {
 };
 
 export const iconsPresets = {
-  bars: Icon({ id: "BarIcon", color: "var(--colorRed)" }),
+  bar: Icon({ id: "BarIcon", color: "var(--colorRed)" }),
   restaurant: Icon({ id: "RestaurantIcon", color: "var(--colorOrange)" }),
   theater: Icon({ id: "TheaterIcon", color: "var(--colorPurple)" }),
   cinema: Icon({ id: "CinemaIcon", color: "var(--colorGreenDark)" }),
-  trk: Icon({ id: "MusicIcon", color: "var(--colorBlue)" }),
+  club: Icon({ id: "MusicIcon", color: "var(--colorBlue)" }),
   centerMarker: Icon({ id: "CenterMapIcon", color: "var(--colorGray)" }),
 };
 

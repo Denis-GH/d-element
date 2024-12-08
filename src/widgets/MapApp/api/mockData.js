@@ -5,7 +5,7 @@ export const filterCfg = {
       isChecked: "null",
       isDisabled: "null",
     },
-    bars: {
+    bar: {
       value: null,
       isChecked: true,
       isDisabled: false,
@@ -15,7 +15,7 @@ export const filterCfg = {
       isChecked: false,
       isDisabled: false,
     },
-    trk: {
+    club: {
       value: null,
       isChecked: false,
       isDisabled: false,
@@ -37,7 +37,7 @@ export const markDetail = [
   {
     id: "1",
     title: "Al Capone",
-    type: "bars",
+    type: "bar",
     address: {
       city: "Челябинск",
       house: "12a",
@@ -106,7 +106,7 @@ export const markDetail = [
   {
     id: "5",
     title: "Al Capone 2",
-    type: "trk",
+    type: "club",
     address: {
       city: "Челябинск 2",
       house: "12a",
@@ -124,10 +124,15 @@ export const markDetail = [
 
 export const marksList = {
   marks: [
-    { id: "1", type: "bars", cords: [56.5, 57.9] },
-    { id: "2", type: "restaurant", cords: [54.5, 57.9] },
-    { id: "14", type: "theater", cords: [53.5, 57.9] },
-    { id: "15", type: "cinema", cords: [52.5, 57.9] },
-    { id: "16", type: "trk", cords: [51.5, 57.9] },
+    { id: "1", type: "bar", cords: [55.173722, 61.401783] },
+    { id: "2", type: "restaurant", cords: [55.175375, 61.395695] },
+    { id: "3", type: "theater", cords: [55.174985, 61.405741] },
+    { id: "4", type: "cinema", cords: [55.171743, 61.40212] },
+    { id: "5", type: "club", cords: [55.173287, 61.392337] },
+    { id: "6", type: "restaurant", cords: [55.175375, 61.40212] },
+    { id: "7", type: "restaurant", cords: [55.177375, 61.41212] },
+    { id: "8", type: "bar", cords: [55.176375, 61.40212] },
+    { id: "9", type: "bar", cords: [55.178375, 61.4] },
+    { id: "10", type: "theater", cords: [55.178375, 61.395] },
   ],
 };
