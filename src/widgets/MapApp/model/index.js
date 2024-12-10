@@ -119,6 +119,12 @@ export class MapApp {
           const lat = parseFloat(coords[1]);
           const lon = parseFloat(coords[0]);
           this.yandexMap.centerMapByCoords([lat, lon]);
+          const centerMarker = this.yandexMap.addCenterMarker();
+          setTimeout(() => {
+            if (centerMarker && centerMarker.parentNode) {
+              centerMarker.parentNode.removeChild(centerMarker);
+            }
+          }, 5000);
         }
       })
       .catch((e) => console.error(e));
